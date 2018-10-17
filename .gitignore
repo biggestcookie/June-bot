@@ -66,3 +66,7 @@ notes
 
 # Error log
 log.txt
+
+# Glitch files
+shrinkwrap.yaml
+.glitch-assets
