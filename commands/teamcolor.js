@@ -1,7 +1,7 @@
 const color_list = require("../options/roles.json").colors;
 
 module.exports = {
-    name: 'teamcolor',
+    name: "teamcolor",
     guild: true,
     run(message, args) {
         author = message.member;
