@@ -1,0 +1,13 @@
+{
+    "project_id": "amadeus-71c96",
+    "prefix": "/",
+    "suffix": "~",
+    "help": "```I don't do much yet. \nJust @mention me for something.```",
+    "error_msg": "what do i even say to that",
+    "command_error_msg": "didnt work sorry",
+    "guild_only_msg": "cant do that here doofus",
+    "channels": {
+        "general": ""
+    },
+    "owner": "84118417275092992"
+}
