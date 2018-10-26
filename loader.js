@@ -22,5 +22,13 @@ function load_event(event) {
 
 function log_error(e) {
     console.log(e);
+    let owner = client.fetchUser(config.owner).then(
+        user => {
+            user.send(e.message);
+        },
+        rejection => {
+            console.log("Issue forwarding error.");
+        }
+    );
     fs.appendFile("log.txt", e.message + "\n");
 }

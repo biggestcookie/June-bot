@@ -42,7 +42,7 @@ module.exports = {
                 // Try to get response from Dialogflow
                 try {
                     let intent = await promise;
-                    checkCommand(intent, message, client);
+                    processMessage(intent, message, client);
                 } catch (e) {
                     // Dialogflow error
                     message.channel.send(config.error_msg);
@@ -53,11 +53,16 @@ module.exports = {
     }
 };
 
-function checkCommand(intent, message, client) {
-    // Begin checking for user intent as command
+function processMessage(intent, message, client) {
+    // Send bot reply and process user intent
     const query = intent[0].queryResult;
     message.channel.stopTyping();
     message.channel.send(query.fulfillmentText);
+
+    //Log stuff in console
+    console.log("Message from " + message.author + ": " + message.cleanContent);
+    console.log("Response: " + query.fulfillmentText);
+
     if (query.intent) {
         const commandName = query.intent.displayName.replace("input.", "");
         const command = client.commandlist.get(commandName);
