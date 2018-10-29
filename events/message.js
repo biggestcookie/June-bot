@@ -5,50 +5,51 @@ const sessionClient = new dialogflow.SessionsClient();
 
 module.exports = {
     run: (message, client) => {
-        // In case we ever support traditional commands
-        // if (message.cleanContent.startsWith(config.prefix) && client.user.id != message.author.id)
-        if (
-            (message.isMentioned(client.user) ||
+        if (client.user.id != message.author.id) {
+            if (message.cleanContent.startsWith(config.prefix)) {
+                // Traditional
+            } else if (
+                message.isMentioned(client.user) ||
                 message.channel.type == "dm" ||
-                message.content.endsWith(config.suffix)) &&
-            client.user.id != message.author.id
-        ) {
-            message.channel.startTyping();
-            let cleanMessage = clean(
-                client.user.username,
-                message.cleanContent
-            );
-            const user = message.author.id;
-            const sessionPath = sessionClient.sessionPath(
-                config.project_id,
-                user
-            );
-
-            let promise = new Promise((resolve, reject) => {
-                resolve(
-                    sessionClient.detectIntent({
-                        session: sessionPath,
-                        queryInput: {
-                            text: {
-                                text: cleanMessage,
-                                languageCode: languageCode
-                            }
-                        }
-                    })
+                message.content.endsWith(config.suffix)
+            ) {
+                message.channel.startTyping();
+                let cleanMessage = clean(
+                    client.user.username,
+                    message.cleanContent
                 );
-            });
+                const user = message.author.id;
+                const sessionPath = sessionClient.sessionPath(
+                    process.env.PROJECT_ID,
+                    user
+                );
 
-            (async function() {
-                // Try to get response from Dialogflow
-                try {
-                    let intent = await promise;
-                    processMessage(intent, message, client);
-                } catch (e) {
-                    // Dialogflow error
-                    message.channel.send(config.error_msg);
-                    console.log(e);
-                }
-            })();
+                let promise = new Promise((resolve, reject) => {
+                    resolve(
+                        sessionClient.detectIntent({
+                            session: sessionPath,
+                            queryInput: {
+                                text: {
+                                    text: cleanMessage,
+                                    languageCode: languageCode
+                                }
+                            }
+                        })
+                    );
+                });
+
+                (async function() {
+                    // Try to get response from Dialogflow
+                    try {
+                        let intent = await promise;
+                        processMessage(intent, message, client);
+                    } catch (e) {
+                        // Dialogflow error
+                        message.channel.send(config.error_msg);
+                        console.log(e);
+                    }
+                })();
+            }
         }
     }
 };
