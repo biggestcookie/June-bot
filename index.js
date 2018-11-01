@@ -3,7 +3,8 @@ const express = require("express");
 const app = express();
 
 app.get("/", (request, response) => {
-    response.sendFile(__dirname + "/views/index.html");
+    response.sendStatus(200);
+    // response.sendFile(__dirname + "/views/index.html");
 });
 app.listen(process.env.PORT);
 
