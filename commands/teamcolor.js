@@ -21,6 +21,7 @@ module.exports = {
                 return;
             }
         });
+        console.log("Setting role...");
         author.setRoles([colorId]).catch(console.error);
         console.log("Set role: " + args.teamcolor.stringValue);
     }
