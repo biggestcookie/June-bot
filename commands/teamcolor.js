@@ -4,15 +4,15 @@ module.exports = {
     name: "teamcolor",
     guild: true,
     run(message, args) {
-        author = message.member;
-        colorId = args.teamcolor.stringValue;
+        let author = message.member;
+        let colorId = args.teamcolor.stringValue;
         if (!color_list.hasOwnProperty(colorId)) {
             // Team color not found in list
             return;
         }
 
         // Check user's current team colors
-        userRoles = author.roles.array();
+        let userRoles = author.roles.array();
         userRoles.forEach(color => {
             // User is already on a team, remove it
             if (color_list.hasOwnProperty(color.id)) {
@@ -22,5 +22,6 @@ module.exports = {
             }
         });
         author.setRoles([colorId]).catch(console.error);
+        console.log("Set role: " + args.teamcolor.stringValue);
     }
 };
