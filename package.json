@@ -8,12 +8,10 @@
         "start": "node index.js"
     },
     "dependencies": {
-        "dialogflow": "^0.7.0",
+        "dialogflow": "^0.8.0",
         "discord.js": "^11.4.2",
+        "dotenv": "^6.2.0",
         "express": "^4.16.4"
-    },
-    "engines": {
-        "node": "8.x"
     },
     "repository": {
         "url": "https://api.glitch.com/june-bot/git"
