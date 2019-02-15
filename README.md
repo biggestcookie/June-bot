@@ -1,3 +1,4 @@
 # June-bot
 
-A cute Discord chatbot with attitude, powered by Dialogflow V2.
+The cutest Discord bot you'll ever meet ✿✼:\*ﾟ:.｡
+Powered by Dialogflow V2.
