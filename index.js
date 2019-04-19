@@ -1,27 +1,27 @@
 const express = require('express');
 const fs = require('fs');
 const Discord = require('discord.js');
-// const http = require('http');
-// const { execSync } = require('child_process');
+const http = require('http');
+const { execSync } = require('child_process');
+
 const client = new Discord.Client();
 const config = require('./options/config.json');
 
 const app = express();
 
-// eslint-disable-next-line import/no-extraneous-dependencies
-require('dotenv').config();
+// require('dotenv').config();
 
 // Pulls latest changes from GitHub remote
-// function gitPull() {
-//   console.log('Fetching latest changes.');
-//   const output = execSync('git pull').toString();
-//   console.log(output);
-// }
-// gitPull();
-// setInterval(() => {
-//   http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
-//   gitPull();
-// }, 301000);
+function gitPull() {
+  console.log('Fetching latest changes.');
+  const output = execSync('git pull').toString();
+  console.log(output);
+}
+gitPull();
+setInterval(() => {
+  http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
+  gitPull();
+}, 301000);
 
 app.get('/', (request, response) => {
   response.sendStatus(200);
