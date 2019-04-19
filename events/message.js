@@ -65,8 +65,8 @@ module.exports = {
       // Traditional
     } else if (
       message.isMentioned(client.user)
-      || message.channel.type === 'dm'
-      || message.content.endsWith(config.suffix)
+            || message.channel.type === 'dm'
+            || message.content.endsWith(config.suffix)
     ) {
       message.channel.startTyping();
       const cleanMessage = clean(
