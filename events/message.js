@@ -4,7 +4,7 @@ const config = require('../options/config.json');
 const languageCode = 'en-US';
 const sessionClient = new dialogflow.SessionsClient();
 
-function processMessage(intent, message) {
+function processMessage(client, intent, message) {
   // Send bot reply and process user intent
   const query = intent[0].queryResult;
   message.channel.stopTyping();
@@ -40,11 +40,11 @@ function processMessage(intent, message) {
   }
 }
 
-async function getBotResponse(request, message) {
+async function getBotResponse(client, request, message) {
   // Try to get response from Dialogflow
   try {
     const intent = await sessionClient.detectIntent(request);
-    processMessage(intent, message);
+    processMessage(client, intent, message);
   } catch (e) {
     // Dialogflow error
     message.channel.send(config.error_msg);
@@ -86,7 +86,7 @@ module.exports = {
           },
         },
       };
-      getBotResponse(request, message);
+      getBotResponse(client, request, message);
     }
   },
 };
