@@ -3,18 +3,18 @@
     "version": "0.0.1",
     "author": "Paul Hansa",
     "description": "A cute bot.",
-    "main": "index.js",
+    "main": "app.js",
     "scripts": {
-        "start": "node index.js",
+        "start": "node app.js",
         "lint": "eslint ."
     },
     "dependencies": {
-        "dialogflow": "latest",
-        "discord.js": "latest",
-        "express": "latest"
+        "dialogflow": "^0.8.2",
+        "discord.js": "^11.4.2",
+        "express": "^4.16.4"
     },
     "devDependencies": {
-        "dotenv": "latest",
+        "dotenv": "7.0.0",
         "eslint": "^5.16.0",
         "eslint-config-airbnb-base": "^13.1.0",
         "eslint-plugin-import": "^2.17.1"
