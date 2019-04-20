@@ -23,10 +23,17 @@ setInterval(() => {
   gitPull();
 }, 301000);
 
+client.commandlist = {};
+fs.readdirSync('./commands').forEach((file) => {
+  const command = require(`./commands/${file}`);
+  client.commandlist.set(command.name, command);
+});
+
 app.get('/', (request, response) => {
   response.sendStatus(200);
 });
 app.listen(process.env.PORT);
+
 require('./loader.js').run(client);
 
 client.login(process.env.DISCORD);

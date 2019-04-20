@@ -19,8 +19,7 @@ function processMessage(intent, message) {
     message.channel.send(query.fulfillmentText);
   } else {
     // Command; Process command then reply
-    const commandName = query.intent.displayName;
-    const command = require(`../commands/${commandName}`);
+    const command = client.commandlist.get(query.intent.displayName);
     const args = query.parameters.fields;
     console.log(`Command: ${commandName}\nArgs: ${Boolean(args)}`);
 
@@ -65,8 +64,8 @@ module.exports = {
       // Traditional
     } else if (
       message.isMentioned(client.user)
-            || message.channel.type === 'dm'
-            || message.content.endsWith(config.suffix)
+      || message.channel.type === 'dm'
+      || message.content.endsWith(config.suffix)
     ) {
       message.channel.startTyping();
       const cleanMessage = clean(
