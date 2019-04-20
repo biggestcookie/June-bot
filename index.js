@@ -23,10 +23,10 @@ setInterval(() => {
   gitPull();
 }, 301000);
 
-client.commandlist = {};
+client.commandList = new Map();
 fs.readdirSync('./commands').forEach((file) => {
   const command = require(`./commands/${file}`);
-  client.commandlist.set(command.name, command);
+  client.commandList.set(command.name, command);
 });
 
 app.get('/', (request, response) => {

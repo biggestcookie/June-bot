@@ -19,7 +19,7 @@ function processMessage(intent, message) {
     message.channel.send(query.fulfillmentText);
   } else {
     // Command; Process command then reply
-    const command = client.commandlist.get(query.intent.displayName);
+    const command = client.commandList.get(query.intent.displayName);
     const args = query.parameters.fields;
     console.log(`Command: ${commandName}\nArgs: ${Boolean(args)}`);
 
