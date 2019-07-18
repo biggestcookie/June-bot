@@ -1,12 +1,15 @@
 {
     "prefix": "/",
-    "suffix": "~",
     "help": "```I don't do much yet. \nJust @mention me for something.```",
-    "error_msg": "what do i even say to that",
-    "command_error_msg": "didnt work sorry",
-    "guild_only_msg": "cant do that here doofus",
-    "channels": {
-        "general": ""
+    "msg": {
+        "error": "what do i even say to that",
+        "error_guild": "cant do that here doofus",
+        "error_cmd": "didnt work sorry",
+        "success_cmd": [
+            "ok",
+            "done"
+        ]
     },
+    "botchannel": "468425106255904777",
     "owner": "84118417275092992"
 }

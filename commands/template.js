@@ -1,6 +1,6 @@
 module.exports = {
   name: 'template',
-
+  desc: '',
   // If command needs arguments
   args: false,
 
