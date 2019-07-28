@@ -31,7 +31,7 @@ function processMessage(client, intent, message) {
   console.log(`Message from ${message.author}: ${message.cleanContent}`);
   console.log(`Response: ${query.fulfillmentText}`);
 
-  if (!query.intent || !query.allRequiredParamsPresent) {
+  if (query.intent.name === '' || !query.allRequiredParamsPresent) {
     // Conversation; Send reply
     message.channel.send(query.fulfillmentText);
   } else {

@@ -10,7 +10,7 @@
     },
     "dependencies": {
         "dialogflow": "^0.8.2",
-        "discord.js": "^11.4.2",
+        "discord.js": "^11.5.1",
         "express": "^4.16.4",
         "sqlite3": "^4.0.6"
     },
