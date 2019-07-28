@@ -4,7 +4,7 @@ const config = require('../options/config.json');
 const languageCode = 'en-US';
 const sessionClient = new dialogflow.SessionsClient();
 
-function runCommand(command, args) {
+function runCommand(command, args, message, query) {
   console.log(`Command: ${command.name}\nArgs: ${Boolean(args)}`);
   if (!(command.guild && message.channel.type !== 'text')) {
     try {
@@ -38,7 +38,7 @@ function processMessage(client, intent, message) {
     // Command; Process command then reply
     const command = client.commandList.get(query.intent.displayName);
     const args = query.parameters.fields;
-    runCommand(command, args);
+    runCommand(command, args, message, query);
   }
 }
 
