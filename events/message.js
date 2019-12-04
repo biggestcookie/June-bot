@@ -11,8 +11,8 @@ function runCommand(command, args, message, query) {
       command.run(message, args);
       message.channel.send(query.fulfillmentText);
       console.log('Command success');
-    } catch (e) {
-      console.log(`Command fail \n${e}`);
+    } catch (error) {
+      console.log(`Command fail \n${error}`);
       message.channel.send(config.msg.error_cmd);
     }
   } else {
@@ -22,7 +22,7 @@ function runCommand(command, args, message, query) {
   }
 }
 
-function processMessage(client, intent, message) {
+function sendDialogFlowReply(client, intent, message) {
   // Send bot reply and process user intent
   const query = intent[0].queryResult;
   message.channel.stopTyping();
@@ -68,11 +68,11 @@ async function getBotResponse(client, message) {
   };
   try {
     const intent = await sessionClient.detectIntent(request);
-    processMessage(client, intent, message);
-  } catch (e) {
+    sendDialogFlowReply(client, intent, message);
+  } catch (error) {
     // Dialogflow error
     message.channel.send(config.msg.error);
-    console.log(e);
+    console.log(error);
   }
 }
 
@@ -87,5 +87,6 @@ module.exports = {
       message.channel.startTyping();
       getBotResponse(client, message);
     }
+    // else return
   },
 };

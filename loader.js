@@ -4,17 +4,17 @@ function loadEvent(event) {
   return require(`./events/${event}`);
 }
 
-function logError(e) {
-  console.log(e);
+function logError(error) {
+  console.log(error);
   client.fetchUser(config.owner).then(
     (user) => {
-      user.send(e.message);
+      user.send(error.message);
     },
     (rejection) => {
       console.log(`Issue forwarding error: ${rejection}`);
     },
   );
-  fs.appendFile('log.txt', `${e.message}\n`);
+  fs.appendFile('log.txt', `${error.message}\n`);
 }
 
 module.exports = {
