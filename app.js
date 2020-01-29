@@ -9,19 +9,19 @@ const config = require("./options/config.json");
 
 const app = express();
 
-// require('dotenv').config();
+require("dotenv").config();
 
 // Pulls latest changes from GitHub remote
-function gitPull() {
-  console.log("Fetching latest changes.");
-  const output = execSync("git pull").toString();
-  console.log(output);
-}
-gitPull();
-setInterval(() => {
-  http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
-  gitPull();
-}, 301000);
+// function gitPull() {
+//   console.log("Fetching latest changes.");
+//   const output = execSync("git pull").toString();
+//   console.log(output);
+// }
+// gitPull();
+// setInterval(() => {
+//   http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
+//   gitPull();
+// }, 301000);
 
 client.commandList = new Map();
 fs.readdirSync("./commands").forEach(file => {
