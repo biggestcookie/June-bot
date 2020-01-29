@@ -3,11 +3,12 @@
   "help": "```I don't do much yet. \nJust @mention me for something.```",
   "msg": {
     "error": "what do i even say to that",
-    "error_guild": "cant do that here doofus",
+    "error_guild": "cant do that here try a server",
     "error_cmd": "didnt work sorry",
     "success_cmd": ["ok", "done"],
     "status": "for a @mention"
   },
-  "botchannel": "468425106255904777",
+  "botchannel": "671867857424089109",
+  "spamchannel": "224569624170201099",
   "owner": "84118417275092992"
 }
