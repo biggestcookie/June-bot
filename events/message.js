@@ -44,7 +44,6 @@ function sendDialogFlowReply(client, intent, message) {
       const args = query.parameters.fields;
       runCommand(command, args, message, query);
     }
-    message.channel.send(config.msg.error_cmd);
   } else {
     message.channel.send(config.msg.error_cmd);
   }
