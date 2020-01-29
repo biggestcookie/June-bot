@@ -77,8 +77,7 @@ module.exports = {
     const isMessage =
       message.isMentioned(client.user) ||
       message.channel.type === "dm" ||
-      message.channel.id === config.botchannel ||
-      message.channel.id === config.spamchannel;
+      message.channel.id === config.botchannel;
     if (isChatCommand) {
       // Traditional
     } else if (isMessage) {
