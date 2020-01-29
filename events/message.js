@@ -32,16 +32,21 @@ function sendDialogFlowReply(client, intent, message) {
   console.log(`Response: ${query.fulfillmentText}`);
 
   if (query.intent) {
-    console.log(`Intent: ${query.intent}`);
+    console.log(`Intent: ${query.intent.displayName}`);
     if (query.intent.name === "" || !query.allRequiredParamsPresent) {
       // Conversation; Send reply
       message.channel.send(query.fulfillmentText);
+    } else if (query.intent.displayName === "Default Fallback Intent") {
+      message.channel.send(query.fulfillmentText);
+    } else {
+      // Command; Process command then reply
+      const command = client.commandList.get(query.intent.displayName);
+      const args = query.parameters.fields;
+      runCommand(command, args, message, query);
     }
+    message.channel.send(config.msg.error_cmd);
   } else {
-    // Command; Process command then reply
-    const command = client.commandList.get(query.intent.displayName);
-    const args = query.parameters.fields;
-    runCommand(command, args, message, query);
+    message.channel.send(config.msg.error_cmd);
   }
 }
 
