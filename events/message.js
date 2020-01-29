@@ -31,9 +31,12 @@ function sendDialogFlowReply(client, intent, message) {
   console.log(`Message from ${message.author}: ${message.cleanContent}`);
   console.log(`Response: ${query.fulfillmentText}`);
 
-  if (query.intent.name === "" || !query.allRequiredParamsPresent) {
-    // Conversation; Send reply
-    message.channel.send(query.fulfillmentText);
+  if (query.intent) {
+    console.log(`Intent: ${query.intent}`);
+    if (query.intent.name === "" || !query.allRequiredParamsPresent) {
+      // Conversation; Send reply
+      message.channel.send(query.fulfillmentText);
+    }
   } else {
     // Command; Process command then reply
     const command = client.commandList.get(query.intent.displayName);

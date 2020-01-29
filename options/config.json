@@ -2,10 +2,10 @@
   "prefix": "/",
   "help": "```I don't do much yet. \nJust @mention me for something.```",
   "msg": {
-    "error": "what do i even say to that",
+    "error": "ok",
     "error_guild": "cant do that here try a server",
     "error_cmd": "didnt work sorry",
-    "success_cmd": ["ok", "done"],
+    "success_cmd": ["done", "its done"],
     "status": "for a @mention"
   },
   "botchannel": "671867857424089109",
