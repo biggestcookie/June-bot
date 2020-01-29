@@ -1,44 +1,56 @@
 {
-    "name": "june-bot",
-    "version": "0.0.1",
-    "author": "Paul Hansa",
-    "description": "A cute bot.",
-    "main": "app.js",
-    "scripts": {
-        "start": "node app.js",
-        "lint": "eslint ."
+  "name": "june-bot",
+  "version": "0.0.1",
+  "author": "Paul Hansa",
+  "description": "A cute bot.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "lint": "eslint ."
+  },
+  "engines": {
+    "node": "10.x"
+  },
+  "dependencies": {
+    "dialogflow": "^0.8.2",
+    "discord.js": "^11.5.1",
+    "express": "^4.16.4",
+    "sqlite3": "^4.0.6"
+  },
+  "devDependencies": {
+    "dotenv": "7.0.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.17.1",
+    "eslint-plugin-prettier": "^3.1.2"
+  },
+  "repository": {
+    "url": "https://api.glitch.com/june-bot/git"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "es6": true,
+      "node": true
     },
-    "dependencies": {
-        "dialogflow": "^0.8.2",
-        "discord.js": "^11.5.1",
-        "express": "^4.16.4",
-        "sqlite3": "^4.0.6"
-    },
-    "devDependencies": {
-        "dotenv": "7.0.0",
-        "eslint": "^5.16.0",
-        "eslint-config-airbnb-base": "^13.1.0",
-        "eslint-plugin-import": "^2.17.1"
-    },
-    "repository": {
-        "url": "https://api.glitch.com/june-bot/git"
-    },
-    "eslintConfig": {
-        "root": true,
-        "env": {
-            "es6": true,
-            "node": true
-        },
-        "extends": [
-            "airbnb-base"
-        ],
-        "rules": {
-            "no-console": "off",
-            "no-unused-vars": "off",
-            "no-undef": "off",
-            "global-require": "off",
-            "no-prototype-builtins": "off",
-            "import/no-dynamic-require": "off"
-        }
+    "extends": [
+      "airbnb-base",
+      "prettier"
+    ],
+    "plugins": [
+      "prettier"
+    ],
+    "rules": {
+      "no-console": "off",
+      "no-unused-vars": "off",
+      "no-undef": "off",
+      "global-require": "off",
+      "no-prototype-builtins": "off",
+      "import/no-dynamic-require": "off",
+      "prettier/prettier": [
+        "error"
+      ]
     }
+  }
 }
