@@ -8,11 +8,14 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
-      "program": "${workspaceFolder}/app.js",
+      "program": "${workspaceFolder}/dist/index.js",
       "skipFiles": [
         "${workspaceFolder}/node_modules/**/*.js",
         "<node_internals>/**/*.js"
-      ]
+      ],
+      "preLaunchTask": "TSC: Build",
+      "smartStep": true,
+      "envFile": "${workspaceFolder}/.env"
     }
   ]
 }
