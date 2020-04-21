@@ -4,8 +4,14 @@
   "console": {
     "ready": "Bot running."
   },
-  "msg": {
-    "help": "```I don't do much yet. \nJust @mention me for something.```",
+  "commands": {
+    "help": {
+      "aliases": ["docs"],
+      "desc": "Describes a command and how to use it.",
+      "usage": "help <command name>"
+    }
+  },
+  "text": {
     "error": "no",
     "error_guild": "cant do that here try a server",
     "error_cmd": "didnt work sorry",

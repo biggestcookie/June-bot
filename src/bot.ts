@@ -1,5 +1,10 @@
-import { Client, ClientEvents, ClientOptions } from "discord.js";
+import { Client, ClientEvents, ClientOptions, Collection } from "discord.js";
 import { readdir } from "fs";
+import { Command } from "./utils/command";
+
+export interface DiscordClient extends Client {
+  commands: Collection<string, Command>;
+}
 
 export class Bot {
   public client: Client;
