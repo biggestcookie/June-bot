@@ -1,4 +1,4 @@
-import { Client, ClientOptions, ClientEvents } from "discord.js";
+import { Client, ClientEvents, ClientOptions } from "discord.js";
 import { readdir } from "fs";
 
 export class Bot {
@@ -14,9 +14,15 @@ export class Bot {
   }
 
   private async startEventListeners() {
-    readdir(`${__dirname}/events`, (error, eventFiles) => {
+    readdir(`${__dirname}/events`, async (error, eventFiles) => {
       if (error) throw error;
-      eventFiles.forEach(event => {});
+      for await (const eventFile of eventFiles) {
+        const eventName = eventFile.split(".")[0];
+        const eventMethod = await import(`${__dirname}/events/${eventFile}`);
+        this.client.on(eventName as keyof ClientEvents, (...args) => {
+          eventMethod.run(this.client, ...args);
+        });
+      }
     });
   }
 }
