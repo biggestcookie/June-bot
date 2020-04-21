@@ -9,16 +9,27 @@
     "moduleResolution": "node",
     "removeComments": true,
     "strict": true,
-    "sourceMap": true,
+    "inlineSourceMap": true,
     "target": "es2020",
     "outDir": "dist",
     "baseUrl": ".",
     "skipLibCheck": true,
     "paths": {
-      "*": ["node_modules/*", "src/types/*"],
-      "@/*": ["src/*"]
+      "*": [
+        "node_modules/*",
+        "src/types/*"
+      ],
+      "@/*": [
+        "src/*"
+      ]
     }
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "test"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "test"
+  ]
 }

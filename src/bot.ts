@@ -1,5 +1,5 @@
-import { Client, ClientOptions } from "discord.js";
-import config from "@/options/config.json";
+import { Client, ClientOptions, ClientEvents } from "discord.js";
+import { readdir } from "fs";
 
 export class Bot {
   public client: Client;
@@ -8,10 +8,15 @@ export class Bot {
     this.client = new Client(clientOptions);
   }
 
-  public async start(): Promise<void> {
-    this.client.once("ready", () => {
-      console.log(config.console.ready);
+  public async start() {
+    await this.startEventListeners();
+    this.client.login(process.env.DISCORD_TOKEN);
+  }
+
+  private async startEventListeners() {
+    readdir(`${__dirname}/events`, (error, eventFiles) => {
+      if (error) throw error;
+      eventFiles.forEach(event => {});
     });
-    this.client.login(process.env.DISCORD);
   }
 }

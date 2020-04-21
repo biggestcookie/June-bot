@@ -12,7 +12,7 @@
     "build": "tsc --p tsconfig.json",
     "prestart": "npm run build",
     "start": "node dist/index.js",
-    "lint": "eslint .",
+    "lint": "eslint **/*.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
@@ -55,6 +55,9 @@
       "@typescript-eslint/eslint-plugin"
     ],
     "rules": {
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unused-vars": "off",
       "no-console": "off"
     }
   },

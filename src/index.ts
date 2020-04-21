@@ -7,12 +7,12 @@ const options: ClientOptions = {
   presence: {
     activity: {
       type: "WATCHING",
-      name: config.status,
-    },
-  },
+      name: config.status
+    }
+  }
 };
 
-async function init(options: ClientOptions): Promise<void> {
+async function init(options: ClientOptions) {
   try {
     const bot = new Bot(options);
     await bot.start();
