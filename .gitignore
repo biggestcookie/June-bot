@@ -115,7 +115,7 @@ dist
 .pnp.*
 
 # Google authentication key
-options/key.json
+src/options/key.json
 
 # Snippets
 notes
