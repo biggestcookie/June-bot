@@ -1,22 +1,14 @@
-import config from "@/options/config.json";
+import { Bot } from "@/bot";
+import { Message } from "discord.js";
 
 export interface HelpText {
   aliases: string[];
   desc: string;
-  dm?: true;
   usage: string;
 }
 
-export abstract class Command {
-  name: string;
-  helpText: HelpText;
-
-  constructor(name: string) {
-    this.name = name;
-    this.helpText = {
-      aliases: (config.commands as any)[name]["aliases"],
-      desc: (config.commands as any)[name]["desc"],
-      usage: (config.commands as any)[name]["usage"]
-    };
-  }
+export interface Command {
+  help?: HelpText;
+  dm?: boolean;
+  run: (bot: Bot, message: Message, args?: string[]) => void;
 }

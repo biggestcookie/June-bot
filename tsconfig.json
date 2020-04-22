@@ -5,12 +5,15 @@
     "esModuleInterop": true,
     "importHelpers": true,
     "noImplicitAny": true,
+    "lib": [
+      "ES2019"
+    ],
     "module": "commonjs",
     "moduleResolution": "node",
+    "target": "es2019",
     "removeComments": true,
     "strict": true,
     "inlineSourceMap": true,
-    "target": "es2020",
     "outDir": "dist",
     "baseUrl": ".",
     "skipLibCheck": true,

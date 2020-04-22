@@ -2,12 +2,9 @@ import { Client, ClientEvents, ClientOptions, Collection } from "discord.js";
 import { readdir } from "fs";
 import { Command } from "./utils/command";
 
-export interface DiscordClient extends Client {
-  commands: Collection<string, Command>;
-}
-
 export class Bot {
   public client: Client;
+  commands = new Collection<string, Command>();
 
   constructor(clientOptions?: ClientOptions) {
     this.client = new Client(clientOptions);
@@ -15,6 +12,7 @@ export class Bot {
 
   public async start() {
     await this.startEventListeners();
+    await this.assignAllCommands();
     this.client.login(process.env.DISCORD_TOKEN);
   }
 
@@ -25,8 +23,22 @@ export class Bot {
         const eventName = eventFile.split(".")[0];
         const eventMethod = await import(`${__dirname}/events/${eventFile}`);
         this.client.on(eventName as keyof ClientEvents, (...args) => {
-          eventMethod.run(this.client, ...args);
+          eventMethod.run(this, ...args);
         });
+      }
+    });
+  }
+
+  private async assignAllCommands() {
+    readdir(`${__dirname}/commands`, async (error, commandFiles) => {
+      if (error) throw error;
+      for await (const commandFile of commandFiles) {
+        const commandName = commandFile.split(".")[0];
+        const command: Command = await import(
+          `${__dirname}/commands/${commandFile}`
+        );
+        // command.help =
+        this.commands.set(commandName, command);
       }
     });
   }

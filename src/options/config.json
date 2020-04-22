@@ -6,15 +6,27 @@
   },
   "commands": {
     "help": {
-      "aliases": ["docs"],
+      "aliases": [
+        "docs"
+      ],
       "desc": "Describes a command and how to use it.",
       "usage": "help <command name>"
+    },
+    "role": {
+      "aliases": [
+        "team"
+      ],
+      "desc": "Assigns you a role.",
+      "usage": "role <role name>"
     }
   },
   "text": {
     "error": "no",
     "error_guild": "cant do that here try a server",
     "error_cmd": "didnt work sorry",
-    "success_cmd": ["done", "its done"]
+    "success_cmd": [
+      "done",
+      "its done"
+    ]
   }
 }
