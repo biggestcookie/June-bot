@@ -1,8 +1,17 @@
-import { Bot } from "@/bot";
-import { Message } from "discord.js";
+import { App } from "@/app";
+import { Message, User } from "discord.js";
+import config from "@/options/config.json";
 
-export async function run(bot: Bot, message: Message) {
-  const role = bot.commands.get("role");
-  role?.run(bot, message);
-  console.log(`received message: ${message}`);
+export async function run(app: App, message: Message) {
+  const isChatCommand = message.cleanContent.startsWith(config.prefix);
+  const isMessageForBot =
+    message.mentions.has(app.client.user as User) ||
+    message.channel.type === "dm";
+
+  if (isChatCommand) {
+    // parse command
+  } else if (isMessageForBot) {
+    // dialogflow
+    message.channel.startTyping();
+  }
 }

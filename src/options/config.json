@@ -2,7 +2,7 @@
   "prefix": "/",
   "status": "for a @mention",
   "console": {
-    "ready": "Bot running."
+    "ready": "App running."
   },
   "commands": {
     "help": {

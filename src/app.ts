@@ -1,8 +1,8 @@
 import { Client, ClientEvents, ClientOptions, Collection } from "discord.js";
 import { readdir } from "fs";
-import { Command } from "./utils/command";
+import { Command, buildHelpText } from "./utils/command";
 
-export class Bot {
+export class App {
   public client: Client;
   commands = new Collection<string, Command>();
 
@@ -22,8 +22,9 @@ export class Bot {
       for await (const eventFile of eventFiles) {
         const eventName = eventFile.split(".")[0];
         const eventMethod = await import(`${__dirname}/events/${eventFile}`);
-        this.client.on(eventName as keyof ClientEvents, (...args) => {
-          eventMethod.run(this, ...args);
+
+        this.client.on(eventName as keyof ClientEvents, async (...args) => {
+          await eventMethod.run(this, ...args);
         });
       }
     });
@@ -36,8 +37,9 @@ export class Bot {
         const commandName = commandFile.split(".")[0];
         const command: Command = await import(
           `${__dirname}/commands/${commandFile}`
-        );
-        // command.help =
+        ).then(module => module.default);
+
+        command.help = buildHelpText(commandName);
         this.commands.set(commandName, command);
       }
     });

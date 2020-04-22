@@ -1,24 +1,24 @@
 import "module-alias/register";
 import config from "@/options/config.json";
 import { ClientOptions } from "discord.js";
-import { Bot } from "./bot";
+import { App } from "./app";
 
-const options: ClientOptions = {
-  presence: {
-    activity: {
-      type: "WATCHING",
-      name: config.status
+async function init() {
+  const options: ClientOptions = {
+    presence: {
+      activity: {
+        type: "WATCHING",
+        name: config.status
+      }
     }
-  }
-};
+  };
 
-async function init(options: ClientOptions) {
   try {
-    const bot = new Bot(options);
-    await bot.start();
+    const app = new App(options);
+    await app.start();
   } catch (err) {
     console.log(err);
   }
 }
 
-init(options);
+init();

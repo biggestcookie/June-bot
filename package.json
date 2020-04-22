@@ -19,10 +19,9 @@
     "node": "12.x"
   },
   "dependencies": {
-    "dialogflow": "^1.2.0",
+    "@google-cloud/dialogflow": "github:googleapis/nodejs-dialogflow",
     "discord.js": "^12.2.0",
     "module-alias": "^2.2.2",
-    "sqlite3": "^4.1.1",
     "typeorm": "^0.2.24"
   },
   "devDependencies": {
