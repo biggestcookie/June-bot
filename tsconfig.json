@@ -13,6 +13,7 @@
     "target": "es2019",
     "removeComments": true,
     "strict": true,
+    "strictNullChecks": false,
     "inlineSourceMap": true,
     "outDir": "dist",
     "baseUrl": ".",
