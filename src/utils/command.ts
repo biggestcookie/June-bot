@@ -8,10 +8,12 @@ export interface HelpText {
   usage: string;
 }
 
+export type ArgsMap = Map<number | string, string>;
+
 export interface Command {
   dm: boolean;
   help?: HelpText;
-  run: (app: App, message: Message, ...args: string[]) => Promise<string>;
+  run: (app: App, message: Message, args: ArgsMap) => Promise<string>;
 }
 
 export function buildHelpText(commandName: string): HelpText {
@@ -33,11 +35,11 @@ export async function attemptExecuteCommand(
   app: App,
   message: Message,
   commandName: string,
-  args?: string[]
+  args?: ArgsMap
 ): Promise<string> {
   try {
     const command = findCommand(commandName, app.commands);
-    return await command.run(app, message, ...args);
+    return await command.run(app, message, args);
   } catch (error) {
     console.log(error);
     if (error instanceof TypeError) {

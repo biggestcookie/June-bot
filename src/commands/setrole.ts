@@ -1,12 +1,13 @@
 import { App } from "@/app";
 import { Message } from "discord.js";
-import { Command } from "@/utils/command";
+import { Command, ArgsMap } from "@/utils/command";
 
 async function setRole(
   app: App,
   message: Message,
-  role: string
+  args: ArgsMap
 ): Promise<string> {
+  const role = args.get(0) ?? args.get("rolename");
   return role;
 }
 

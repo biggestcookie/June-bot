@@ -1,8 +1,13 @@
 import { App } from "@/app";
 import { Message, User } from "discord.js";
 import config from "@/options/config.json";
-import { attemptExecuteCommand } from "@/utils/command";
+import { attemptExecuteCommand, ArgsMap } from "@/utils/command";
 import { requestFromDialogflow } from "@/api/dialogflow";
+
+function parseMessageArgs(messageContent: string): ArgsMap {
+  const argsList = messageContent.split(" ").splice(1);
+  return argsList.reduce((argsMap, val, i) => argsMap.set(i, val), new Map());
+}
 
 export async function run(app: App, message: Message) {
   const isChatCommand = message.cleanContent.startsWith(config.prefix);
@@ -13,10 +18,11 @@ export async function run(app: App, message: Message) {
 
   let commandName: string | undefined;
   let reply: string;
-  let args: any;
+  let args: ArgsMap;
 
   if (isChatCommand && !isByBot) {
     commandName = message.cleanContent.split(config.prefix).pop();
+    args = parseMessageArgs(message.cleanContent);
   } else if (isForDialogflow && !isByBot) {
     const response = await requestFromDialogflow(message);
     reply = response.reply;

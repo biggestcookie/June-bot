@@ -1,6 +1,7 @@
 import config from "@/options/config.json";
 import { SessionsClient } from "@google-cloud/dialogflow";
 import { Message } from "discord.js";
+import { ArgsMap } from "@/utils/command";
 
 export interface DfResponse {
   reply: string;
@@ -21,7 +22,7 @@ export async function requestFromDialogflow(
 ): Promise<DfResponse> {
   let reply: string;
   let commandName: string;
-  let args: string[];
+  let args: ArgsMap;
 
   const sessionPath = dfClient.projectAgentSessionPath(
     process.env.GCP_ID,
@@ -41,13 +42,16 @@ export async function requestFromDialogflow(
     const intent = await dfClient.detectIntent(request);
     const result = intent[0].queryResult;
     if (
+      result.allRequiredParamsPresent &&
       result.intent.displayName !== "" &&
-      result.intent.displayName !== "Default Fallback Intent" &&
-      result.allRequiredParamsPresent
+      result.intent.displayName !== "Default Fallback Intent"
     ) {
       commandName = result.intent.displayName;
-      args = Object.values(result.parameters.fields).map(
-        value => value.stringValue
+      args = Object.entries(result.parameters.fields).reduce(
+        (map, [key, value]) => {
+          return map.set(key, value.stringValue);
+        },
+        new Map()
       );
     } else {
       reply = result.fulfillmentText;
