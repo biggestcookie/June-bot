@@ -1,10 +1,10 @@
-import { Client, ClientEvents, ClientOptions, Collection } from "discord.js";
+import { Client, ClientEvents, ClientOptions } from "discord.js";
 import { readdir } from "fs";
 import { Command, buildHelpText } from "./utils/command";
 
 export class App {
   public client: Client;
-  commands = new Collection<string, Command>();
+  commands = new Map<string, Command>();
 
   constructor(clientOptions?: ClientOptions) {
     this.client = new Client(clientOptions);

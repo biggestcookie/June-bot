@@ -3,15 +3,15 @@ import { SessionsClient } from "@google-cloud/dialogflow";
 import { Message } from "discord.js";
 import { ArgsMap } from "@/utils/command";
 
+const dfClient = new SessionsClient({
+  credentials: JSON.parse(process.env.GCP_CREDENTIALS)
+});
+
 export interface DfResponse {
   reply: string;
   commandName?: string;
   args?: any;
 }
-
-const dfClient = new SessionsClient({
-  credentials: JSON.parse(process.env.GCP_CREDENTIALS)
-});
 
 function removeMention(str: string): string {
   return str.slice(str.indexOf(">") + 1, str.length);

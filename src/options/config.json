@@ -24,7 +24,8 @@
     "error": {
       "not_found": "sorry i dont know that command",
       "internal": "didnt work sorry",
-      "df": "err0r 4o4"
+      "df": "err0r 4o4",
+      "dm": "cant do this in the DMs, ask me in a server"
     },
     "success_cmd": [
       "done",

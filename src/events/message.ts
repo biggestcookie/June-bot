@@ -17,7 +17,7 @@ export async function run(app: App, message: Message) {
   const isByBot = message.author.id === app.client.user.id;
 
   let commandName: string | undefined;
-  let reply: string;
+  let reply: string | string[];
   let args: ArgsMap;
 
   if (isChatCommand && !isByBot) {
@@ -37,6 +37,10 @@ export async function run(app: App, message: Message) {
     reply = await attemptExecuteCommand(app, message, commandName, args);
   }
 
-  await message.channel.send(reply);
+  if (reply instanceof Array) {
+    Promise.all(reply.map(msg => message.channel.send(msg)));
+  } else {
+    await message.channel.send(reply);
+  }
   message.channel.stopTyping();
 }

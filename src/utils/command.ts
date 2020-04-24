@@ -1,6 +1,6 @@
 import { App } from "@/app";
 import config from "@/options/config.json";
-import { Message, Collection } from "discord.js";
+import { Message } from "discord.js";
 
 export interface HelpText {
   aliases: string[];
@@ -13,7 +13,7 @@ export type ArgsMap = Map<number | string, string>;
 export interface Command {
   dm: boolean;
   help?: HelpText;
-  run: (app: App, message: Message, args: ArgsMap) => Promise<string>;
+  run: (app: App, args: ArgsMap) => Promise<string | string[]>;
 }
 
 export function buildHelpText(commandName: string): HelpText {
@@ -24,22 +24,18 @@ export function buildHelpText(commandName: string): HelpText {
   };
 }
 
-export function findCommand(
-  commandName: string,
-  commands: Collection<string, Command>
-): Command | undefined {
-  return commands.get(commandName);
-}
-
 export async function attemptExecuteCommand(
   app: App,
   message: Message,
   commandName: string,
   args?: ArgsMap
-): Promise<string> {
+): Promise<string | string[]> {
   try {
-    const command = findCommand(commandName, app.commands);
-    return await command.run(app, message, args);
+    const command = app.commands.get(commandName);
+    if (!command.dm && message.channel.type === "dm") {
+      return config.text.error.dm;
+    }
+    return await command.run(app, args);
   } catch (error) {
     console.log(error);
     if (error instanceof TypeError) {

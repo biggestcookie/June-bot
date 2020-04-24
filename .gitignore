@@ -113,18 +113,3 @@ dist
 .yarn/unplugged
 .yarn/build-state.yml
 .pnp.*
-
-# Google authentication key
-src/options/key.json
-
-# Snippets
-notes
-
-# Error log
-log.txt
-
-# Glitch files
-shrinkwrap.yaml
-.glitch-assets
-
-docs/
