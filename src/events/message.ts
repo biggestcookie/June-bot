@@ -4,9 +4,8 @@ import config from "@/options/config.json";
 import { attemptExecuteCommand, ArgsMap, Reply } from "@/utils/command";
 import { requestFromDialogflow } from "@/api/dialogflow";
 
-function parseMessageArgs(messageContent: string): ArgsMap {
-  const argsList = messageContent.split(" ").splice(1);
-  return argsList.reduce((argsMap, val, i) => argsMap.set(i, val), new Map());
+function parseMessageArgs(args: string[]): ArgsMap {
+  return args.reduce((argsMap, val, i) => argsMap.set(i, val), new Map());
 }
 
 export async function run(app: App, message: Message) {
@@ -17,30 +16,36 @@ export async function run(app: App, message: Message) {
   const isByBot = message.author.id === app.client.user.id;
 
   let commandName: string | undefined;
-  let reply: Reply | Reply[];
   let args: ArgsMap;
 
   if (isChatCommand && !isByBot) {
-    commandName = message.cleanContent.split(config.prefix).pop();
-    args = parseMessageArgs(message.cleanContent);
+    const splitMsgArr = message.cleanContent.split(" ");
+    commandName = splitMsgArr[0].split(config.prefix).pop();
+    args = parseMessageArgs(splitMsgArr.splice(1));
   } else if (isForDialogflow && !isByBot) {
     const response = await requestFromDialogflow(message);
-    reply = response.reply;
+    const initialReply = response.reply;
+
     commandName = response.commandName;
     args = response.args;
+    if (commandName && initialReply) {
+      await message.channel.send(initialReply);
+    }
   } else {
     return;
   }
 
-  if (commandName) {
-    message.channel.startTyping();
-    reply = await attemptExecuteCommand(app, message, commandName, args);
-  }
-
-  if (reply instanceof Array) {
-    Promise.all(reply.map(msg => message.channel.send(msg)));
-  } else {
-    await message.channel.send(reply);
-  }
+  message.channel.startTyping();
+  const completeReply = await attemptExecuteCommand(
+    app,
+    message,
+    commandName,
+    args
+  );
   message.channel.stopTyping();
+  if (completeReply instanceof Array) {
+    Promise.all(completeReply.map(msg => message.channel.send(msg)));
+  } else {
+    await message.channel.send(completeReply);
+  }
 }

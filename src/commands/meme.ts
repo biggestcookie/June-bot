@@ -1,14 +1,20 @@
+import { getRandomTopPostsFromSub } from "@/api/reddit";
 import { App } from "@/app";
 import { ArgsMap, Command, Reply } from "@/utils/command";
-import { getRandomTopPostsFromSub } from "@/api/reddit";
-import { MessageEmbed } from "discord.js";
+import { getRandomElement } from "@/utils/utils";
 
 async function sendMeme(app: App, args?: ArgsMap): Promise<Reply | Reply[]> {
-  const sub = "animemes,wholesomeanimemes";
-  const quantity = parseInt(args.get(0) ?? args.get("quantity")) || 1;
-  const postLinks = await getRandomTopPostsFromSub(sub, quantity);
-  const reply = new MessageEmbed();
-  return postLinks.length > 1 ? postLinks : postLinks[0];
+  let quantity = parseInt(args.get(0) ?? args.get("quantity")) || 1;
+  quantity = quantity = Math.min(quantity, 5);
+
+  const sub = getRandomElement([
+    "animemes",
+    "wholesomeanimemes",
+    "wholesomememes"
+  ]);
+
+  const embedMessage = await getRandomTopPostsFromSub(sub, quantity);
+  return embedMessage.length > 1 ? embedMessage : embedMessage[0];
 }
 
 const meme: Command = {

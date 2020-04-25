@@ -41,6 +41,8 @@ export async function requestFromDialogflow(
   try {
     const intent = await dfClient.detectIntent(request);
     const result = intent[0].queryResult;
+    reply = result.fulfillmentText;
+
     if (
       result.allRequiredParamsPresent &&
       result.intent.displayName !== "" &&
@@ -56,8 +58,6 @@ export async function requestFromDialogflow(
         },
         new Map()
       );
-    } else {
-      reply = result.fulfillmentText;
     }
   } catch (error) {
     console.log(error);

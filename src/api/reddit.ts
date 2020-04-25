@@ -1,8 +1,12 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { getRandomBetweenRange } from "@/utils/utils";
 import axios from "axios";
+import { MessageEmbed } from "discord.js";
+
+/* eslint-disable @typescript-eslint/camelcase */
 
 const url = "https://api.pushshift.io/reddit/search";
+const redditIconUrl =
+  "https://www.redditstatic.com/desktop2x/img/favicon/favicon-32x32.png";
 
 const instance = axios.create({
   baseURL: url,
@@ -20,7 +24,7 @@ function getDateRange(): { startDate: number; endDate: number } {
 export async function getRandomTopPostsFromSub(
   subreddit: string,
   quantity = 1
-): Promise<string[]> {
+): Promise<MessageEmbed[]> {
   const calls = Array.from({ length: quantity }, () => {
     const { startDate, endDate } = getDateRange();
     return instance({
@@ -40,5 +44,16 @@ export async function getRandomTopPostsFromSub(
     });
   });
   const responses = await axios.all(calls);
-  return responses.map(response => response.data.data[0].url);
+  return responses.map(response => {
+    const responseData = response.data.data[0];
+    return new MessageEmbed()
+      .setURL(responseData.url)
+      .setImage(responseData.full_link)
+      .setTitle(responseData.title)
+      .setAuthor(
+        `r/${responseData.subreddit}`,
+        redditIconUrl,
+        `https://reddit.com/r/${responseData.subreddit}`
+      );
+  });
 }
