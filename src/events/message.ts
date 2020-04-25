@@ -28,7 +28,7 @@ export async function run(app: App, message: Message) {
 
     commandName = response.commandName;
     args = response.args;
-    if (commandName && initialReply) {
+    if (initialReply) {
       await message.channel.send(initialReply);
     }
   } else {
