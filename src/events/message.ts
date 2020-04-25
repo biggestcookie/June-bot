@@ -1,7 +1,7 @@
 import { App } from "@/app";
 import { Message, User } from "discord.js";
 import config from "@/options/config.json";
-import { attemptExecuteCommand, ArgsMap } from "@/utils/command";
+import { attemptExecuteCommand, ArgsMap, Reply } from "@/utils/command";
 import { requestFromDialogflow } from "@/api/dialogflow";
 
 function parseMessageArgs(messageContent: string): ArgsMap {
@@ -17,7 +17,7 @@ export async function run(app: App, message: Message) {
   const isByBot = message.author.id === app.client.user.id;
 
   let commandName: string | undefined;
-  let reply: string | string[];
+  let reply: Reply | Reply[];
   let args: ArgsMap;
 
   if (isChatCommand && !isByBot) {

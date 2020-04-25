@@ -49,7 +49,10 @@ export async function requestFromDialogflow(
       commandName = result.intent.displayName;
       args = Object.entries(result.parameters.fields).reduce(
         (map, [key, value]) => {
-          return map.set(key, value.stringValue);
+          return map.set(
+            key,
+            value.stringValue ?? value.numberValue.toString()
+          );
         },
         new Map()
       );

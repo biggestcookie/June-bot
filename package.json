@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@google-cloud/dialogflow": "github:googleapis/nodejs-dialogflow",
+    "axios": "^0.19.2",
     "discord.js": "^12.2.0",
     "module-alias": "^2.2.2",
     "typeorm": "^0.2.24"

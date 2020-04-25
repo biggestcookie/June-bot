@@ -18,6 +18,14 @@
       ],
       "desc": "Assigns you a role.",
       "usage": "role <role name>"
+    },
+    "meme": {
+      "aliases": [
+        "memes",
+        "sendmeme"
+      ],
+      "desc": "Sends some of June's favorite memes.",
+      "usage": "meme <quantity>"
     }
   },
   "text": {
