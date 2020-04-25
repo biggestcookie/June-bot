@@ -35,17 +35,19 @@ export async function run(app: App, message: Message) {
     return;
   }
 
-  message.channel.startTyping();
-  const completeReply = await attemptExecuteCommand(
-    app,
-    message,
-    commandName,
-    args
-  );
-  message.channel.stopTyping();
-  if (completeReply instanceof Array) {
-    Promise.all(completeReply.map(msg => message.channel.send(msg)));
-  } else {
-    await message.channel.send(completeReply);
+  if (commandName) {
+    message.channel.startTyping();
+    const completeReply = await attemptExecuteCommand(
+      app,
+      message,
+      commandName,
+      args
+    );
+    message.channel.stopTyping();
+    if (completeReply instanceof Array) {
+      Promise.all(completeReply.map(msg => message.channel.send(msg)));
+    } else {
+      await message.channel.send(completeReply);
+    }
   }
 }
