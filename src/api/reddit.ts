@@ -47,8 +47,8 @@ export async function getRandomTopPostsFromSub(
   return responses.map(response => {
     const responseData = response.data.data[0];
     return new MessageEmbed()
-      .setURL(responseData.url)
-      .setImage(responseData.full_link)
+      .setURL(responseData.full_link)
+      .setImage(responseData.url)
       .setTitle(responseData.title)
       .setAuthor(
         `r/${responseData.subreddit}`,
