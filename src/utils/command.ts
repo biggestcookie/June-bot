@@ -13,6 +13,7 @@ export type Reply = string | MessageEmbed;
 
 export interface Command {
   dm: boolean;
+  admin: boolean;
   help?: HelpText;
   run: (app: App, args: ArgsMap) => Promise<Reply | Reply[]>;
 }

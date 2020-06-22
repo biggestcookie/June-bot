@@ -12,12 +12,19 @@
       "desc": "Describes a command and how to use it.",
       "usage": "help <command name>"
     },
+    "addrole": {
+      "aliases": [
+        "addtolist"
+      ],
+      "desc": "Adds a role to the list of user-assignable roles.",
+      "usage": "addrole <role name>"
+    },
     "setrole": {
       "aliases": [
         "team"
       ],
       "desc": "Assigns you a role.",
-      "usage": "role <role name>"
+      "usage": "setrole <role name>"
     },
     "meme": {
       "aliases": [

@@ -11,6 +11,8 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "target": "es2019",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "removeComments": true,
     "strict": true,
     "strictNullChecks": false,

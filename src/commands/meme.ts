@@ -10,7 +10,8 @@ async function sendMeme(app: App, args?: ArgsMap): Promise<Reply | Reply[]> {
   const sub = getRandomElement([
     "animemes",
     "wholesomeanimemes",
-    "wholesomememes"
+    "wholesomememes",
+    "programmeranimemes"
   ]);
 
   const embedMessage = await getRandomTopPostsFromSub(sub, quantity);
@@ -19,6 +20,7 @@ async function sendMeme(app: App, args?: ArgsMap): Promise<Reply | Reply[]> {
 
 const meme: Command = {
   dm: true,
+  admin: false,
   run: sendMeme
 };
 

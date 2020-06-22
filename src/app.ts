@@ -1,6 +1,7 @@
 import { Client, ClientEvents, ClientOptions } from "discord.js";
-import { readdir } from "fs";
-import { Command, buildHelpText } from "./utils/command";
+import { readdir, readFile, readdirSync } from "fs";
+import { ConnectionOptions, createConnection } from "typeorm";
+import { buildHelpText, Command } from "./utils/command";
 
 export class App {
   public client: Client;
@@ -11,9 +12,19 @@ export class App {
   }
 
   public async start() {
+    await this.initDatabaseConnection();
     await this.startEventListeners();
     await this.assignAllCommands();
     this.client.login(process.env.DISCORD_TOKEN);
+  }
+
+  private async initDatabaseConnection() {
+    await createConnection({
+      type: process.env.DATABASE_TYPE,
+      database: process.env.DATABASE_PATH,
+      url: process.env.DATABASE_URL,
+      entities: [`${__dirname}/models/*.js`]
+    } as ConnectionOptions);
   }
 
   private async startEventListeners() {
@@ -28,6 +39,15 @@ export class App {
         });
       }
     });
+    // readdir(`${__dirname}/events`, async (error, eventFiles) => {
+    //   if (error) throw error;
+    //   const eventMethods = await Promise.all(
+    //     eventFiles.map(eventFile => import(`${__dirname}/events/${eventFile}`))
+    //   );
+    //   eventMethods.map(eventMethod => {
+    //     eventMethod.run();
+    //   });
+    // });
   }
 
   private async assignAllCommands() {
