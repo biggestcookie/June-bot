@@ -8,9 +8,9 @@ async function init() {
     presence: {
       activity: {
         type: "WATCHING",
-        name: config.status
-      }
-    }
+        name: config.status,
+      },
+    },
   };
 
   try {

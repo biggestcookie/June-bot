@@ -8,7 +8,7 @@ async function addRoleToList(app: App, args: ArgsMap): Promise<string> {
 const addRole: Command = {
   dm: false,
   admin: true,
-  run: addRoleToList
+  run: addRoleToList,
 };
 
 export default addRole;

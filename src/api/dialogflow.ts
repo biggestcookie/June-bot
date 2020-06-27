@@ -4,7 +4,7 @@ import { Message } from "discord.js";
 import { ArgsMap } from "@/utils/command";
 
 const dfClient = new SessionsClient({
-  credentials: JSON.parse(process.env.GCP_CREDENTIALS)
+  credentials: JSON.parse(process.env.GCP_CREDENTIALS),
 });
 
 export interface DfResponse {
@@ -33,9 +33,9 @@ export async function requestFromDialogflow(
     queryInput: {
       text: {
         text: removeMention(message.content),
-        languageCode: "en-US"
-      }
-    }
+        languageCode: "en-US",
+      },
+    },
   };
 
   try {

@@ -45,7 +45,7 @@ export async function run(app: App, message: Message) {
     );
     message.channel.stopTyping();
     if (completeReply instanceof Array) {
-      Promise.all(completeReply.map(msg => message.channel.send(msg)));
+      Promise.all(completeReply.map((msg) => message.channel.send(msg)));
     } else {
       await message.channel.send(completeReply);
     }

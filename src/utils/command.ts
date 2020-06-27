@@ -22,7 +22,7 @@ export function buildHelpText(commandName: string): HelpText {
   return {
     aliases: (config.commands as any)[commandName]["aliases"],
     desc: (config.commands as any)[commandName]["desc"],
-    usage: (config.commands as any)[commandName]["usage"]
+    usage: (config.commands as any)[commandName]["usage"],
   };
 }
 
