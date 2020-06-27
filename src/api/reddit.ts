@@ -1,8 +1,7 @@
 import { getRandomBetweenRange } from "@/utils/utils";
 import axios from "axios";
 import { MessageEmbed } from "discord.js";
-
-/* eslint-disable @typescript-eslint/camelcase */
+import { getRandomElement } from "@/utils/utils";
 
 const url = "https://api.pushshift.io/reddit/search";
 const redditIconUrl =
@@ -10,7 +9,7 @@ const redditIconUrl =
 
 const instance = axios.create({
   baseURL: url,
-  timeout: 10000
+  timeout: 10000,
 });
 
 function getDateRange(): { startDate: number; endDate: number } {
@@ -21,8 +20,8 @@ function getDateRange(): { startDate: number; endDate: number } {
   return { startDate: randomDate - 604800, endDate: randomDate };
 }
 
-export async function getRandomTopPostsFromSub(
-  subreddit: string,
+export async function getRandomTopPostsFromSubs(
+  subreddits: string[],
   quantity = 1
 ): Promise<MessageEmbed[]> {
   const calls = Array.from({ length: quantity }, () => {
@@ -39,21 +38,25 @@ export async function getRandomTopPostsFromSub(
         over_18: false,
         stickied: false,
         is_video: false,
-        subreddit
-      }
+        subreddit: getRandomElement(subreddits),
+      },
     });
   });
   const responses = await axios.all(calls);
-  return responses.map(response => {
+  return responses.map((response) => {
     const responseData = response.data.data[0];
-    return new MessageEmbed()
-      .setURL(responseData.full_link)
-      .setImage(responseData.url)
-      .setTitle(responseData.title)
-      .setAuthor(
-        `r/${responseData.subreddit}`,
-        redditIconUrl,
-        `https://reddit.com/r/${responseData.subreddit}`
-      );
+    const message = new MessageEmbed();
+    if (responseData) {
+      message
+        .setURL(responseData.full_link)
+        .setImage(responseData.url)
+        .setTitle(responseData.title)
+        .setAuthor(
+          `r/${responseData.subreddit}`,
+          redditIconUrl,
+          `https://reddit.com/r/${responseData.subreddit}`
+        );
+    }
+    return message;
   });
 }
