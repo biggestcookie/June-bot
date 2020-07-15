@@ -1,8 +1,8 @@
 # June-bot
 
 ![Banner](https://i.imgur.com/LtyqS5a.jpg)
-![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
-[![Support me](https://img.shields.io/badge/Support-Buy%20me%20a%20coffee-yellow.svg?style=flat-square)](https://www.buymeacoffee.com/bigcookie)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+[![Support me](https://img.shields.io/badge/Support-Buy%20me%20a%20coffee-yellow.svg)](https://www.buymeacoffee.com/bigcookie)
 
 The cutest Discord bot you'll ever meet ✿✼:*ﾟ:.｡
 
