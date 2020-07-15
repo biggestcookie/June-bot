@@ -21,7 +21,7 @@ June uses Dialogflow's 'small talk' feature, which isn't capable of much more th
 
 ## Why make this?
 
-This was a originally a bit of a pet project for myself to learn JavaScript. I did learn a lot and have since upgraded to TypeScript, so now I'm releasing this project for others to use as an example when integrating Discord and/or Dialogflow in TypeScript. I will likely have to stop developing this bot soon, so I am hoping the project will be helpful for anyone aspiring to make a Discord bot using TypeScript or Dialogflow.
+This was a originally a bit of a pet project for myself to learn JavaScript. I did learn a lot and have since upgraded to TypeScript, so now I'm releasing this project for others to use as an example when integrating Discord and/or Dialogflow in TypeScript. I will likely have to stop developing this bot soon, so I am hoping the project will be helpful for anyone aspiring to make a Discord bot with these tools.
 
 I think the Discord community would greatly benefit from more bots using natural language for ease-of-use, role-playing, and so much more.
 
@@ -33,10 +33,7 @@ June is not set up for public servers. If you'd like to clone the repository to 
 
 ### What is June capable of?
 
-Outside of small talk, currently only two commands -- 'send a meme' or 'assign a role'. Dialogflow can be used to trigger any command you can implement in a Discord bot, though, and can be trained to parse user input for arguments. 
-
-![Arg example](https://i.imgur.com/aylkxr0.png)
-*Example of an argument (wholesome used as a boolean)*
+Outside of small talk, currently only a few commands (this is not unlike most programmers). Dialogflow can be used to trigger any command you can implement in a Discord bot, though, and can be trained to parse user input for arguments. June's current command list will soon be provided [in the wiki](https://github.com/biggestcookie/June-bot/wiki).
 
 ### Where's the art from?
 
