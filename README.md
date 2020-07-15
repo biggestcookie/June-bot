@@ -17,7 +17,7 @@ This isn't just limited to commands -- simple conversations can be held when the
 
 ![Dialog example](https://i.imgur.com/DxI6Jt4.png)
 
-June uses Dialogflow's 'small talk' feature, which isn't capable of much more than simple responses to simple questions, but could easily have fallback responses hooked up to Cleverbot or a similar tool to provide richer, context-aware conversations.
+June uses Dialogflow's 'small talk' feature, which isn't capable of much more than simple responses to simple questions. However, one could easily have fallback responses instead hooked up to Cleverbot or a similar tool to provide richer, context-aware conversations.
 
 ## Why make this?
 
