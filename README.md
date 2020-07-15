@@ -21,13 +21,13 @@ June uses Dialogflow's 'small talk' feature, which isn't capable of much more th
 
 ## Why make this?
 
-This was a originally a bit of a pet project for myself to learn JavaScript. I did learn a lot and have since upgraded to TypeScript, so now I'm releasing this project for others to use as a reference when integrating Discord and/or Dialogflow in TypeScript. I'm getting fairly busy with other commitments, and will likely stop developing this bot, so I am hoping the project will helpful for anyone aspiring to make a Discord bot using TypeScript or Dialogflow.
+This was a originally a bit of a pet project for myself to learn JavaScript. I did learn a lot and have since upgraded to TypeScript, so now I'm releasing this project for others to use as an example when integrating Discord and/or Dialogflow in TypeScript. I will likely have to stop developing this bot soon, so I am hoping the project will be helpful for anyone aspiring to make a Discord bot using TypeScript or Dialogflow.
 
 I think the Discord community would greatly benefit from more bots using natural language for ease-of-use, role-playing, and so much more.
 
 ## How do I use this?
 
-June is not set up for public servers, and this project serves mostly as a reference for anyone to learn from or improve. If you'd like to clone the repository, a simple `npm install` should set you up with the needed dependencies. I'll soon be providing instructions for setting up the Dialogflow end.
+June is not set up for public servers. If you'd like to clone the repository to try it for yourself, a simple `npm install` should set you up with the needed dependencies. I'll soon be providing instructions for setting up the Dialogflow end.
 
 ## Frequently Asked Questions
 
