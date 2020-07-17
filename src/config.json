@@ -2,7 +2,10 @@
   "prefix": "/",
   "status": "for a @mention",
   "console": {
-    "ready": "App running."
+    "ready": "App running.",
+    "error": {
+      "args": "Missing arguments."
+    }
   },
   "commands": {
     "help": {
@@ -12,14 +15,14 @@
       "desc": "Describes a command and how to use it.",
       "usage": "help <command name>"
     },
-    "addrole": {
+    "addRole": {
       "aliases": [
         "addtolist"
       ],
       "desc": "Adds a role to the list of user-assignable roles.",
-      "usage": "addrole <role name>"
+      "usage": "addrole <role name> <role synonyms>"
     },
-    "setrole": {
+    "setRole": {
       "aliases": [
         "team"
       ],
@@ -37,10 +40,13 @@
   },
   "text": {
     "error": {
-      "not_found": "sorry i dont know that command",
-      "internal": "didnt work sorry",
+      "admin": "i dont think youre allowed to do that",
       "df": "err0r 4o4",
-      "dm": "cant do this in the DMs, ask me in a server"
+      "dm": "cant do this in the DMs, ask me in a server",
+      "exists": "already exists doofus",
+      "internal": "didnt work sorry",
+      "not_found": "sorry i dont know that command",
+      "role": "i couldnt find that role sorry"
     },
     "success": [
       "done",

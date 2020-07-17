@@ -3,7 +3,7 @@ import { Guild } from "discord.js";
 import { getRepository } from "typeorm";
 
 export async function run(guild: Guild) {
-  const serverRepo = getRepository(GuildEntity);
-  const newServer = new GuildEntity(Number(guild.id));
-  await serverRepo.save(newServer);
+  const guildRepo = getRepository(GuildEntity);
+  const newGuildEntity = new GuildEntity(guild.id);
+  await guildRepo.save(newGuildEntity);
 }

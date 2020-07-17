@@ -1,7 +1,7 @@
 import { Client, ClientEvents, ClientOptions } from "discord.js";
 import { readdir } from "fs";
 import { ConnectionOptions, createConnection } from "typeorm";
-import { buildHelpText, Command } from "./utils/command";
+import { Command } from "./utils/command";
 
 export class App {
   public static client: Client;
@@ -23,7 +23,8 @@ export class App {
       type: process.env.DATABASE_TYPE,
       database: process.env.DATABASE_PATH,
       url: process.env.DATABASE_URL,
-      entities: [`${__dirname}/models/*.js`],
+      entities: [`${__dirname}/entities/*.js`],
+      synchronize: true, // Use process.env.NODE_ENV to alter this value when in production!
     } as ConnectionOptions);
   }
 
@@ -50,8 +51,8 @@ export class App {
           `${__dirname}/commands/${commandFile}`
         ).then((module) => module.default);
 
-        command.help = buildHelpText(commandName);
-        App.commands.set(commandName, command);
+        // command.help = buildHelpText(commandName);
+        App.commands.set(commandName.toLowerCase(), command);
       }
     });
   }

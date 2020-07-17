@@ -69,16 +69,27 @@ export async function requestFromDialogflow(
 
 export async function updateDialogflowEntityEntry(
   entityName: string,
-  entry: string
+  entry: string,
+  synonyms?: string[]
 ) {
   const entClient = new EntityTypesClient({
     credentials: JSON.parse(process.env.GCP_CREDENTIALS),
     projectId: process.env.GCP_ID,
   });
-  const dfEntity = await entClient.getEntityType({
-    name: entityName,
+  const parentPath = `projects/${process.env.GCP_ID}/agent`;
+  const dfEntities = await entClient.listEntityTypes({
+    parent: parentPath,
   });
-  const entityType = dfEntity[0];
-  const entities = entityType.entities;
-  console.log();
+  const entityType = dfEntities[0].find(
+    (entity) => entity.displayName === entityName
+  );
+  await entClient.batchCreateEntities({
+    parent: entityType.name,
+    entities: [
+      {
+        value: entry,
+        synonyms,
+      },
+    ],
+  });
 }

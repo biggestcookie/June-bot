@@ -10,8 +10,8 @@
             "name": "Launch Program",
             "program": "${workspaceFolder}/dist/index.js",
             "skipFiles": [
-                "${workspaceFolder}/node_modules/**/*.js",
-                "<node_internals>/**/*.js"
+                "${workspaceFolder}/node_modules/**",
+                "<node_internals>/**"
             ],
             "preLaunchTask": "TSC: Build",
             "smartStep": true,

@@ -3,13 +3,13 @@ import { RoleEntity } from "./role";
 
 @Entity()
 export class GuildEntity {
-  @PrimaryColumn("unsigned big int")
-  id: number;
+  @PrimaryColumn("varchar", { length: 20 })
+  id: string;
 
   @OneToMany((type) => RoleEntity, (role) => role.server, { cascade: true })
   roles: RoleEntity[];
 
-  constructor(id?: number, roles?: RoleEntity[]) {
+  constructor(id?: string, roles?: RoleEntity[]) {
     this.id = id;
     this.roles = roles;
   }

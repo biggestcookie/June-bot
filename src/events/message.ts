@@ -38,7 +38,7 @@ export async function run(message: Message) {
   if (commandName) {
     message.channel.startTyping();
     const completeReply = await attemptExecuteCommand(
-      commandName,
+      commandName.toLowerCase(),
       args,
       message
     );
