@@ -1,7 +1,6 @@
-import { App } from "@/app";
-import { Command, ArgsMap } from "@/utils/command";
+import { ArgsMap, Command } from "@/utils/command";
 
-async function setRole(app: App, args: ArgsMap): Promise<string> {
+async function setRole(args: ArgsMap): Promise<string> {
   const role = args.get(0) ?? args.get("rolename");
   return new Promise((resolve) => {
     setTimeout(() => resolve(role), 5000);

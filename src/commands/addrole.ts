@@ -1,7 +1,9 @@
-import { App } from "@/app";
 import { ArgsMap, Command } from "@/utils/command";
+import { Message } from "discord.js";
 
-async function addRoleToList(app: App, args: ArgsMap): Promise<string> {
+async function addRoleToList(args: ArgsMap, message: Message): Promise<string> {
+  const roleName = args.get(0) ?? args.get("rolename");
+
   return "void";
 }
 

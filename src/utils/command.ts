@@ -1,5 +1,5 @@
 import { App } from "@/app";
-import config from "@/options/config.json";
+import config from "@/config.json";
 import { Message, MessageEmbed } from "discord.js";
 
 export interface HelpText {
@@ -15,7 +15,7 @@ export interface Command {
   dm: boolean;
   admin: boolean;
   help?: HelpText;
-  run: (app: App, args: ArgsMap) => Promise<Reply | Reply[]>;
+  run: (args?: ArgsMap, message?: Message) => Promise<Reply | Reply[]>;
 }
 
 export function buildHelpText(commandName: string): HelpText {
@@ -27,17 +27,16 @@ export function buildHelpText(commandName: string): HelpText {
 }
 
 export async function attemptExecuteCommand(
-  app: App,
-  message: Message,
   commandName: string,
-  args?: ArgsMap
+  args?: ArgsMap,
+  message?: Message
 ): Promise<Reply | Reply[]> {
   try {
-    const command = app.commands.get(commandName);
+    const command = App.commands.get(commandName);
     if (!command.dm && message.channel.type === "dm") {
       return config.text.error.dm;
     }
-    return await command.run(app, args);
+    return await command.run(args);
   } catch (error) {
     console.log(error);
     if (error instanceof TypeError) {

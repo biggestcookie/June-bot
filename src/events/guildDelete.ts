@@ -4,6 +4,6 @@ import { getRepository } from "typeorm";
 
 export async function run(guild: Guild) {
   const serverRepo = getRepository(GuildEntity);
-  const newServer = new GuildEntity(Number(guild.id));
-  await serverRepo.save(newServer);
+  const server = await serverRepo.findOne(Number(guild.id));
+  if (server) await serverRepo.delete(server);
 }

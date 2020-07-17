@@ -4,18 +4,18 @@ import { ConnectionOptions, createConnection } from "typeorm";
 import { buildHelpText, Command } from "./utils/command";
 
 export class App {
-  public client: Client;
-  commands = new Map<string, Command>();
+  public static client: Client;
+  static commands = new Map<string, Command>();
 
   constructor(clientOptions?: ClientOptions) {
-    this.client = new Client(clientOptions);
+    App.client = new Client(clientOptions);
   }
 
   public async start() {
     await this.initDatabaseConnection();
     await this.startEventListeners();
     await this.assignAllCommands();
-    this.client.login(process.env.DISCORD_TOKEN);
+    App.client.login(process.env.DISCORD_TOKEN);
   }
 
   private async initDatabaseConnection() {
@@ -34,8 +34,8 @@ export class App {
         const eventName = eventFile.split(".")[0];
         const eventMethod = await import(`${__dirname}/events/${eventFile}`);
 
-        this.client.on(eventName as keyof ClientEvents, async (...args) => {
-          await eventMethod.run(this, ...args);
+        App.client.on(eventName as keyof ClientEvents, async (...args) => {
+          await eventMethod.run(...args);
         });
       }
     });
@@ -51,7 +51,7 @@ export class App {
         ).then((module) => module.default);
 
         command.help = buildHelpText(commandName);
-        this.commands.set(commandName, command);
+        App.commands.set(commandName, command);
       }
     });
   }

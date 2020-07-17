@@ -1,6 +1,5 @@
-import config from "@/options/config.json";
-import { App } from "@/app";
+import config from "@/config.json";
 
-export async function run(app: App) {
+export async function run() {
   console.log(config.console.ready);
 }

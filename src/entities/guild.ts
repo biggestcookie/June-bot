@@ -1,11 +1,16 @@
 import { Entity, OneToMany, PrimaryColumn } from "typeorm";
-import { Role } from "./role";
+import { RoleEntity } from "./role";
 
 @Entity()
-export class Guild {
-  @PrimaryColumn()
+export class GuildEntity {
+  @PrimaryColumn("unsigned big int")
   id: number;
 
-  @OneToMany((type) => Role, (role) => role.guild)
-  roles: Role[];
+  @OneToMany((type) => RoleEntity, (role) => role.server, { cascade: true })
+  roles: RoleEntity[];
+
+  constructor(id?: number, roles?: RoleEntity[]) {
+    this.id = id;
+    this.roles = roles;
+  }
 }

@@ -1,5 +1,5 @@
-import config from "@/options/config.json";
-import { SessionsClient } from "@google-cloud/dialogflow";
+import config from "@/config.json";
+import { SessionsClient, EntityTypesClient } from "@google-cloud/dialogflow";
 import { Message } from "discord.js";
 import { ArgsMap } from "@/utils/command";
 
@@ -65,4 +65,20 @@ export async function requestFromDialogflow(
   }
 
   return { reply, commandName, args };
+}
+
+export async function updateDialogflowEntityEntry(
+  entityName: string,
+  entry: string
+) {
+  const entClient = new EntityTypesClient({
+    credentials: JSON.parse(process.env.GCP_CREDENTIALS),
+    projectId: process.env.GCP_ID,
+  });
+  const dfEntity = await entClient.getEntityType({
+    name: entityName,
+  });
+  const entityType = dfEntity[0];
+  const entities = entityType.entities;
+  console.log();
 }

@@ -1,5 +1,5 @@
 import "module-alias/register";
-import config from "@/options/config.json";
+import config from "@/config.json";
 import { ClientOptions } from "discord.js";
 import { App } from "./app";
 

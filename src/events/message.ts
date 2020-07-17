@@ -1,19 +1,19 @@
 import { App } from "@/app";
 import { Message, User } from "discord.js";
-import config from "@/options/config.json";
-import { attemptExecuteCommand, ArgsMap, Reply } from "@/utils/command";
+import config from "@/config.json";
+import { attemptExecuteCommand, ArgsMap } from "@/utils/command";
 import { requestFromDialogflow } from "@/api/dialogflow";
 
 function parseMessageArgs(args: string[]): ArgsMap {
   return args.reduce((argsMap, val, i) => argsMap.set(i, val), new Map());
 }
 
-export async function run(app: App, message: Message) {
+export async function run(message: Message) {
   const isChatCommand = message.cleanContent.startsWith(config.prefix);
   const isForDialogflow =
-    message.mentions.has(app.client.user as User) ||
+    message.mentions.has(App.client.user as User) ||
     message.channel.type === "dm";
-  const isByBot = message.author.id === app.client.user.id;
+  const isByBot = message.author.id === App.client.user.id;
 
   let commandName: string | undefined;
   let args: ArgsMap;
@@ -38,10 +38,9 @@ export async function run(app: App, message: Message) {
   if (commandName) {
     message.channel.startTyping();
     const completeReply = await attemptExecuteCommand(
-      app,
-      message,
       commandName,
-      args
+      args,
+      message
     );
     message.channel.stopTyping();
     if (completeReply instanceof Array) {
