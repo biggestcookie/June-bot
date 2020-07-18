@@ -47,12 +47,8 @@ export class App {
       if (error) throw error;
       for (const commandFile of commandFiles) {
         const commandName = commandFile.split(".")[0];
-        const command: Command = await import(
-          `${__dirname}/commands/${commandFile}`
-        ).then((module) => module.default);
-
-        // command.help = buildHelpText(commandName);
-        App.commands.set(commandName.toLowerCase(), command);
+        const command = await import(`${__dirname}/commands/${commandFile}`);
+        App.commands.set(commandName, command.execute);
       }
     });
   }

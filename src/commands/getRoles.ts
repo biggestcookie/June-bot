@@ -1,10 +1,9 @@
 import config from "@/config.json";
-import { Command } from "@/utils/command";
+import { RoleEntity } from "@/entities/role";
 import { Message, MessageEmbed } from "discord.js";
 import { getRepository } from "typeorm";
-import { RoleEntity } from "@/entities/role";
 
-async function execute(_: any, message: Message): Promise<MessageEmbed> {
+export async function execute(_: any, message: Message): Promise<MessageEmbed> {
   const roleEntities = await getRepository(RoleEntity).find({
     where: {
       guild: message.guild.id,
@@ -24,11 +23,3 @@ async function execute(_: any, message: Message): Promise<MessageEmbed> {
   });
   return reply;
 }
-
-const getRoles: Command = {
-  dm: false,
-  admin: false,
-  execute,
-};
-
-export default getRoles;

@@ -2,20 +2,26 @@ import { updateDialogflowEntityEntry } from "@/api/dialogflow";
 import config from "@/config.json";
 import { GuildEntity } from "@/entities/guild";
 import { RoleEntity } from "@/entities/role";
-import { ArgsMap, Command } from "@/utils/command";
+import { ArgsMap } from "@/utils/command";
 import { getRandomElement } from "@/utils/utils";
 import { Message } from "discord.js";
 import { getRepository } from "typeorm";
 
-async function execute(args: ArgsMap, message: Message): Promise<string> {
-  const roleArg = args.get(0) ?? args.get("rolename");
-  if (!roleArg) throw Error(config.console.error.args);
+export async function execute(
+  args: ArgsMap,
+  message: Message
+): Promise<string> {
+  const roleName = args.get(0) ?? args.get("rolename");
+  if (!roleName) throw Error(config.console.error.args);
   const roleSynonyms = Array.from(args, ([_, value]) => value).splice(1);
-  const role = message.guild.roles.cache.find((role) =>
-    parseInt(roleArg) ? role.id === roleArg : role.name === roleArg
-  );
+  let role = message.guild.roles.cache.find((role) => role.name === roleName);
   if (!role) {
-    return config.text.error.role;
+    role = await message.guild.roles.create({
+      data: {
+        name: roleName,
+        mentionable: true,
+      },
+    });
   }
   const guildRepo = getRepository(GuildEntity);
   const guild = await guildRepo.findOne(message.guild.id);
@@ -33,11 +39,3 @@ async function execute(args: ArgsMap, message: Message): Promise<string> {
   await guildRepo.save(guild);
   return getRandomElement(config.text.success);
 }
-
-const addRole: Command = {
-  dm: false,
-  admin: true,
-  execute,
-};
-
-export default addRole;
