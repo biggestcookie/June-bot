@@ -1,8 +1,8 @@
 import { RoleEntity } from "@/entities/role";
+import { Message } from "discord.js";
 import { getRepository } from "typeorm";
 
-export async function run(role: RoleEntity) {
+export async function execute(role: RoleEntity, message: Message) {
   const roleRepo = getRepository(RoleEntity);
-  const roleEnt = await roleRepo.findOne(role.id);
-  if (roleEnt) await roleRepo.delete(roleEnt);
+  await roleRepo.delete(role.id);
 }

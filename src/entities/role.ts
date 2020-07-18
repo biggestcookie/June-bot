@@ -9,12 +9,14 @@ export class RoleEntity {
   @Column("varchar", { length: 100 })
   roleName: string;
 
-  @ManyToOne((type) => GuildEntity, (server) => server.roles)
-  server: GuildEntity;
+  @ManyToOne((type) => GuildEntity, (guild) => guild.roles, {
+    onDelete: "CASCADE",
+  })
+  guild: GuildEntity;
 
-  constructor(id?: string, roleName?: string, server?: GuildEntity) {
+  constructor(id?: string, roleName?: string, guild?: GuildEntity) {
     this.id = id;
     this.roleName = roleName;
-    this.server = server;
+    this.guild = guild;
   }
 }

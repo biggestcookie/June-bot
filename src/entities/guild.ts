@@ -6,7 +6,7 @@ export class GuildEntity {
   @PrimaryColumn("varchar", { length: 20 })
   id: string;
 
-  @OneToMany((type) => RoleEntity, (role) => role.server, { cascade: true })
+  @OneToMany((type) => RoleEntity, (role) => role.guild, { cascade: true })
   roles: RoleEntity[];
 
   constructor(id?: string, roles?: RoleEntity[]) {

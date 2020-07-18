@@ -8,7 +8,7 @@ function parseMessageArgs(args: string[]): ArgsMap {
   return args.reduce((argsMap, val, i) => argsMap.set(i, val), new Map());
 }
 
-export async function run(message: Message) {
+export async function execute(message: Message) {
   const isChatCommand = message.cleanContent.startsWith(config.prefix);
   const isForDialogflow =
     message.mentions.has(App.client.user as User) ||

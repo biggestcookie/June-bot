@@ -1,7 +1,7 @@
 import { getRandomTopPostsFromSubs } from "@/api/reddit";
 import { ArgsMap, Command, Reply } from "@/utils/command";
 
-async function sendMeme(args?: ArgsMap): Promise<Reply | Reply[]> {
+async function execute(args?: ArgsMap): Promise<Reply | Reply[]> {
   let quantity = parseInt(args.get(0) ?? args.get("quantity")) || 1;
   const isWholesome = args.get("isWholesome") === "true" || false;
   quantity = quantity = Math.min(quantity, 5);
@@ -25,7 +25,7 @@ async function sendMeme(args?: ArgsMap): Promise<Reply | Reply[]> {
 const meme: Command = {
   dm: true,
   admin: false,
-  run: sendMeme,
+  execute,
 };
 
 export default meme;

@@ -9,33 +9,32 @@
   },
   "commands": {
     "help": {
-      "aliases": [
-        "docs"
-      ],
       "desc": "Describes a command and how to use it.",
-      "usage": "help <command name>"
+      "usage": "help [command name]"
     },
     "addRole": {
-      "aliases": [
-        "addtolist"
-      ],
       "desc": "Adds a role to the list of user-assignable roles.",
-      "usage": "addrole <role name> <role synonyms>"
+      "usage": "addrole [role name] [role synonyms (optional)]"
+    },
+    "getRoles": {
+      "desc": "Get the list of user-assignable roles.",
+      "usage": "getroles"
+    },
+    "removeRole": {
+      "desc": "Removes a role from the list of user-assignable roles.",
+      "usage": "removerole [role name]"
     },
     "setRole": {
-      "aliases": [
-        "team"
-      ],
       "desc": "Assigns you a role.",
-      "usage": "setrole <role name>"
+      "usage": "setrole [role name]"
     },
     "meme": {
-      "aliases": [
-        "memes",
-        "sendmeme"
-      ],
       "desc": "Sends some of June's favorite memes.",
-      "usage": "meme <quantity>"
+      "usage": "meme [quantity]"
+    },
+    "purge": {
+      "desc": "Deletes your last message(s).",
+      "usage": "purge [quantity]"
     }
   },
   "text": {
@@ -52,5 +51,6 @@
       "done",
       "its done"
     ]
-  }
+  },
+  "whitespace": "\u200B"
 }

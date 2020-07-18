@@ -36,7 +36,7 @@ export class App {
         const eventMethod = await import(`${__dirname}/events/${eventFile}`);
 
         App.client.on(eventName as keyof ClientEvents, async (...args) => {
-          await eventMethod.run(...args);
+          await eventMethod.execute(...args);
         });
       }
     });

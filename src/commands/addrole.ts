@@ -7,10 +7,10 @@ import { getRandomElement } from "@/utils/utils";
 import { Message } from "discord.js";
 import { getRepository } from "typeorm";
 
-async function addRoleToList(args: ArgsMap, message: Message): Promise<string> {
+async function execute(args: ArgsMap, message: Message): Promise<string> {
   const roleArg = args.get(0) ?? args.get("rolename");
-  const roleSynonyms = Array.from(args, ([key, value]) => value).splice(1);
   if (!roleArg) throw Error(config.console.error.args);
+  const roleSynonyms = Array.from(args, ([_, value]) => value).splice(1);
   const role = message.guild.roles.cache.find((role) =>
     parseInt(roleArg) ? role.id === roleArg : role.name === roleArg
   );
@@ -37,7 +37,7 @@ async function addRoleToList(args: ArgsMap, message: Message): Promise<string> {
 const addRole: Command = {
   dm: false,
   admin: true,
-  run: addRoleToList,
+  execute,
 };
 
 export default addRole;

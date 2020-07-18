@@ -8,7 +8,7 @@ export type Reply = string | MessageEmbed;
 export interface Command {
   dm: boolean;
   admin: boolean;
-  run: (args?: ArgsMap, message?: Message) => Promise<Reply | Reply[]>;
+  execute: (args?: ArgsMap, message?: Message) => Promise<Reply | Reply[]>;
 }
 
 export async function attemptExecuteCommand(
@@ -26,7 +26,7 @@ export async function attemptExecuteCommand(
     ) {
       return config.text.error.admin;
     }
-    return await command.run(args, message);
+    return await command.execute(args, message);
   } catch (error) {
     console.log(error);
     if (error instanceof TypeError) {
