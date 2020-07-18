@@ -4,16 +4,16 @@
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![Support me](https://img.shields.io/badge/Support-Buy%20me%20a%20coffee-yellow.svg)](https://www.buymeacoffee.com/bigcookie)
 
-The cutest Discord bot you'll ever meet ✿✼:*ﾟ:.｡
+The cutest Discord bot you'll ever meet ✿✼:\*ﾟ:.｡
 
 ## What is this?
 
 June-bot is a Discord bot with [Dialogflow](https://cloud.google.com/dialogflow) integration. Traditionally, Discord commands are invoked with a prefix and pre-configured words (e.g. `~help` as a command).
-Dialogflow allows June to instead process commands using natural language. 
+Dialogflow allows June to instead process commands using natural language.
 
 ![Meme example](https://i.imgur.com/LTJt0TO.png)
 
-This isn't just limited to commands -- simple conversations can be held when the user's input is not interpreted as a command. 
+This isn't just limited to commands -- simple conversations can be held when the user's input is not interpreted as a command.
 
 ![Dialog example](https://i.imgur.com/DxI6Jt4.png)
 
@@ -37,8 +37,7 @@ Outside of small talk, currently only a few commands (this is not unlike most pr
 
 ### Where's the art from?
 
-June's picture comes from [ガオmaker](https://picrew.me/image_maker/229486) on Picrew.
-
+June's picture comes from [ガオ maker](https://picrew.me/image_maker/229486) on Picrew.
 
 ### I have other questions!
 
