@@ -35,6 +35,7 @@ async function execute(args: ArgsMap, message: Message): Promise<MessageEmbed> {
     
     *or:* ${config.mention} ${config.commands.help.dfUsage}
     `,
+    color: "#ffacac",
   });
   return reply;
 }
@@ -42,7 +43,10 @@ async function execute(args: ArgsMap, message: Message): Promise<MessageEmbed> {
 function getCommandHelp(commandName: string): MessageEmbed {
   const dfUsage = configCommandsLowercase[commandName]["dfUsage"]
     ? `*or:* ${config.mention} ${configCommandsLowercase[commandName]["dfUsage"]}`
-    : config.text.error.dialogflow_not_exist;
+    : `*${config.text.docs.noDialogflow}*`;
+  const guildOnly = !App.commands.get(commandName).dm
+    ? "*" + config.text.docs.guildOnly + "*"
+    : "";
 
   return new MessageEmbed({
     title: `${config.prefix}${commandName}`,
@@ -53,12 +57,14 @@ function getCommandHelp(commandName: string): MessageEmbed {
       **Usage:** ${config.prefix}${configCommandsLowercase[commandName]["usage"]}
 
       ${dfUsage}
+      ${guildOnly}
     `,
+    hexColor: "#ffacac",
   });
 }
 
 const help: Command = {
-  dm: false,
+  dm: true,
   admin: false,
   execute,
 };

@@ -11,18 +11,7 @@ async function execute(_: any, message: Message): Promise<Reply> {
     },
   });
   const roleNames = roleEntities.map((role) => role.roleName);
-  const reply = new MessageEmbed({
-    author: {
-      name: "Roles",
-    },
-    description: roleNames.join(", "),
-    fields: [
-      {
-        name: config.whitespace,
-        value: `Assign a role with ${config.prefix}addrole or by asking me with a @mention`,
-      },
-    ],
-  });
+  const reply = new MessageEmbed();
   return reply;
 }
 

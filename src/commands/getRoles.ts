@@ -20,6 +20,7 @@ async function execute(_: any, message: Message): Promise<MessageEmbed> {
         value: `Assign a role with ${config.prefix}addrole or by asking me with a @mention`,
       },
     ],
+    hexColor: "#ffacac",
   });
   return reply;
 }
