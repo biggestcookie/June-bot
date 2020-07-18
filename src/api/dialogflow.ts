@@ -61,7 +61,7 @@ export async function requestFromDialogflow(
     }
   } catch (error) {
     console.log(error);
-    reply = config.text.error.df;
+    reply = config.text.error.dialogflow;
   }
 
   return { reply, commandName, args };

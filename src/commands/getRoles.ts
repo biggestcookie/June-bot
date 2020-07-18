@@ -1,10 +1,10 @@
 import config from "@/config.json";
-import { Command, Reply } from "@/utils/command";
+import { Command } from "@/utils/command";
 import { Message, MessageEmbed } from "discord.js";
 import { getRepository } from "typeorm";
 import { RoleEntity } from "@/entities/role";
 
-async function execute(_: any, message: Message): Promise<Reply> {
+async function execute(_: any, message: Message): Promise<MessageEmbed> {
   const roleEntities = await getRepository(RoleEntity).find({
     where: {
       guild: message.guild.id,
@@ -12,9 +12,7 @@ async function execute(_: any, message: Message): Promise<Reply> {
   });
   const roleNames = roleEntities.map((role) => role.roleName);
   const reply = new MessageEmbed({
-    author: {
-      name: "Roles",
-    },
+    title: "Roles",
     description: roleNames.join(", "),
     fields: [
       {

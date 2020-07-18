@@ -32,4 +32,4 @@ const removeRole: Command = {
   execute,
 };
 
-export default getRoles;
+export default removeRole;

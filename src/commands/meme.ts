@@ -1,7 +1,8 @@
 import { getRandomTopPostsFromSubs } from "@/api/reddit";
-import { ArgsMap, Command, Reply } from "@/utils/command";
+import { ArgsMap, Command } from "@/utils/command";
+import { MessageEmbed } from "discord.js";
 
-async function execute(args?: ArgsMap): Promise<Reply | Reply[]> {
+async function execute(args?: ArgsMap): Promise<MessageEmbed | MessageEmbed[]> {
   let quantity = parseInt(args.get(0) ?? args.get("quantity")) || 1;
   const isWholesome = args.get("isWholesome") === "true" || false;
   quantity = quantity = Math.min(quantity, 5);

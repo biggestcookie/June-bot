@@ -1,6 +1,7 @@
 {
   "prefix": "/",
   "status": "for a @mention",
+  "mention": "<@703251733954166828>",
   "console": {
     "ready": "App running.",
     "error": {
@@ -10,7 +11,8 @@
   "commands": {
     "help": {
       "desc": "Describes a command and how to use it.",
-      "usage": "help [command name]"
+      "usage": "help [command name (optional)]",
+      "dfUsage": "Tell me how to use [command name]"
     },
     "addRole": {
       "desc": "Adds a role to the list of user-assignable roles.",
@@ -18,7 +20,8 @@
     },
     "getRoles": {
       "desc": "Get the list of user-assignable roles.",
-      "usage": "getroles"
+      "usage": "getroles",
+      "dfUsage": "What roles are there?"
     },
     "removeRole": {
       "desc": "Removes a role from the list of user-assignable roles.",
@@ -26,21 +29,25 @@
     },
     "setRole": {
       "desc": "Assigns you a role.",
-      "usage": "setrole [role name]"
+      "usage": "setrole [role name]",
+      "dfUsage": "Set my role to [role name]"
     },
     "meme": {
-      "desc": "Sends some of June's favorite memes.",
-      "usage": "meme [quantity]"
+      "desc": "Sends some of June's favorite memes",
+      "usage": "meme [quantity (optional, max 5)]",
+      "dfUsage": "Give me 3 memes pronto"
     },
     "purge": {
       "desc": "Deletes your last message(s).",
-      "usage": "purge [quantity]"
+      "usage": "purge [quantity (optional, max 10)]",
+      "dfUsage": "Delete my last 5 messages please"
     }
   },
   "text": {
     "error": {
       "admin": "i dont think youre allowed to do that",
-      "df": "err0r 4o4",
+      "dialogflow": "err0r 4o4",
+      "dialogflow_not_exist": "Can't use a @mention to run this command.",
       "dm": "cant do this in the DMs, ask me in a server",
       "exists": "already exists doofus",
       "internal": "didnt work sorry",
