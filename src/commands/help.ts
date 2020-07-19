@@ -3,13 +3,6 @@ import config from "@/config.json";
 import { ArgsMap } from "@/utils/command";
 import { Message, MessageEmbed } from "discord.js";
 
-const commandConfigLower: any = Object.fromEntries(
-  Object.entries(config.commands).map(([key, value]) => [
-    key.toLowerCase(),
-    value,
-  ])
-);
-
 export async function execute(
   args: ArgsMap,
   message: Message
@@ -24,7 +17,9 @@ export async function execute(
   }));
 
   if (!message.member.hasPermission(["ADMINISTRATOR"])) {
-    commandList.filter((command) => !commandConfigLower[command.name]["admin"]);
+    commandList.filter(
+      (command) => !(config.commands as any)[command.name]["admin"]
+    );
   }
 
   const commandNameList = commandList.map((command) => command.name);
@@ -42,20 +37,21 @@ export async function execute(
 }
 
 function getCommandHelp(commandName: string): MessageEmbed {
-  const dfUsage = commandConfigLower[commandName]["dfUsage"]
-    ? `*or:* ${config.mention} ${commandConfigLower[commandName]["dfUsage"]}`
+  const commandConfig = (config.commands as any)[commandName];
+  const dfUsage = commandConfig["dfUsage"]
+    ? `*or:* ${config.mention} ${commandConfig["dfUsage"]}`
     : `*${config.text.docs.noDialogflow}*`;
-  const guildOnly = !!commandConfigLower[commandName]["dm"]
+  const guildOnly = !!commandConfig["dm"]
     ? "*" + config.text.docs.guildOnly + "*"
     : "";
 
   return new MessageEmbed({
     title: `${config.prefix}${commandName}`,
     description: `
-      ${commandConfigLower[commandName]["desc"]}
+      ${commandConfig["desc"]}
 
 
-      **Usage:** ${config.prefix}${commandConfigLower[commandName]["usage"]}
+      **Usage:** ${config.prefix}${commandConfig["usage"]}
 
       ${dfUsage}
       ${guildOnly}

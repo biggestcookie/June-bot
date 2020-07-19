@@ -16,26 +16,26 @@
       "usage": "help [command name (optional)]",
       "dfUsage": "Tell me how to use [command name]"
     },
-    "addRole": {
+    "addrole": {
       "admin": true,
       "dm": true,
       "desc": "Adds a role to the list of user-assignable roles.",
       "usage": "addrole [role name] [role synonyms (optional)]"
     },
-    "getRoles": {
+    "getroles": {
       "admin": false,
       "dm": true,
       "desc": "Get the list of user-assignable roles.",
       "usage": "getroles",
       "dfUsage": "What roles are there?"
     },
-    "removeRole": {
+    "removerole": {
       "admin": true,
       "dm": true,
       "desc": "Removes a role from the list of user-assignable roles.",
       "usage": "removerole [role name]"
     },
-    "setRole": {
+    "setrole": {
       "admin": false,
       "dm": true,
       "desc": "Assigns you a role.",

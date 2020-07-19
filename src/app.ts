@@ -48,7 +48,7 @@ export class App {
       for (const commandFile of commandFiles) {
         const commandName = commandFile.split(".")[0];
         const command = await import(`${__dirname}/commands/${commandFile}`);
-        App.commands.set(commandName, command.execute);
+        App.commands.set(commandName.toLowerCase(), command.execute);
       }
     });
   }
