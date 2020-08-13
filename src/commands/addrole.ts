@@ -14,7 +14,7 @@ export async function execute(
   const roleName = args.get(0) ?? args.get("rolename");
   if (!roleName) throw Error(config.console.error.args);
   const roleSynonyms = Array.from(args, ([_, value]) => value).splice(1);
-  let role = message.guild.roles.cache.find((role) => role.name === roleName);
+  let role = message.guild.roles.find((role) => role.name === roleName);
   if (!role) {
     role = await message.guild.roles.create({
       data: {
