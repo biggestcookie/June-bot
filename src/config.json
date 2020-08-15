@@ -24,7 +24,7 @@
       "desc": "Adds a role to the list of user-assignable roles.",
       "usage": "addrole [role name] [role synonyms (optional)]",
       "newrole": "was created",
-      "existing role": "was added to the list of user-assignable roles"
+      "existingrole": "was added to the list of user-assignable roles"
     },
     "getroles": {
       "admin": false,

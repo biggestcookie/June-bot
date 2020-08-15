@@ -15,7 +15,8 @@ export async function execute(
   if (!roleName) throw Error(config.console.error.args);
   const roleSynonyms = Array.from(args, ([_, value]) => value).splice(1);
   let role = message.guild.roles.cache.find((role) => role.name === roleName);
-  if (!role) {
+  const roleExisted = !!role;
+  if (!roleExisted) {
     role = await message.guild.roles.create({
       data: {
         name: roleName,
@@ -24,7 +25,9 @@ export async function execute(
     });
   }
   const guildRepo = getRepository(GuildEntity);
-  const guild = await guildRepo.findOne(message.guild.id);
+  const guild = await guildRepo.findOne(message.guild.id, {
+    relations: ["roles"],
+  });
   const newRoleEntity = new RoleEntity(role.id, role.name, guild);
   if (guild.roles) {
     if (guild.roles.find((existingRole) => existingRole.id === role.id)) {
@@ -35,7 +38,12 @@ export async function execute(
   } else {
     guild.roles = [newRoleEntity];
   }
+  // handle existing role
   await updateDialogflowEntityEntry("rolename", role.name, roleSynonyms);
   await guildRepo.save(guild);
-  return getRandomElement(config.text.success);
+  return `${role.name} ${
+    roleExisted
+      ? config.commands.addrole.existingrole
+      : config.commands.addrole.newrole
+  }`;
 }
