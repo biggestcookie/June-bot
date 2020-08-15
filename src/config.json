@@ -4,6 +4,8 @@
   "mention": "<@703251733954166828>",
   "console": {
     "ready": "App running.",
+    "guildCreate": "Added to server",
+    "guildDelete": "Removed from server",
     "error": {
       "args": "Missing arguments."
     }
@@ -20,7 +22,9 @@
       "admin": true,
       "dm": true,
       "desc": "Adds a role to the list of user-assignable roles.",
-      "usage": "addrole [role name] [role synonyms (optional)]"
+      "usage": "addrole [role name] [role synonyms (optional)]",
+      "newrole": "was created",
+      "existingrole": "was added to the list of user-assignable roles"
     },
     "getroles": {
       "admin": false,

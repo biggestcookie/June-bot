@@ -1,9 +1,9 @@
 import { RoleEntity } from "@/entities/role";
-import { Reply } from "@/utils/command";
+import { ArgsMap, Reply } from "@/utils/command";
 import { Message, MessageEmbed } from "discord.js";
 import { getRepository } from "typeorm";
 
-export async function execute(_: any, message: Message): Promise<Reply> {
+export async function execute(args: ArgsMap, message: Message): Promise<Reply> {
   const roleEntities = await getRepository(RoleEntity).find({
     where: {
       guild: message.guild.id,
