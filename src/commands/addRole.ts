@@ -3,7 +3,6 @@ import config from "@/config.json";
 import { GuildEntity } from "@/entities/guild";
 import { RoleEntity } from "@/entities/role";
 import { ArgsMap } from "@/utils/command";
-import { getRandomElement } from "@/utils/utils";
 import { Message } from "discord.js";
 import { getRepository } from "typeorm";
 
@@ -38,7 +37,6 @@ export async function execute(
   } else {
     guild.roles = [newRoleEntity];
   }
-  // handle existing role
   await updateDialogflowEntityEntry("rolename", role.name, roleSynonyms);
   await guildRepo.save(guild);
   return `${role.name} ${
