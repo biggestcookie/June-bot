@@ -12,7 +12,9 @@ export async function execute(_: any, message: Message): Promise<MessageEmbed> {
   const roleNames = roleEntities.map((role) => role.roleName);
   const reply = new MessageEmbed({
     title: "Roles",
-    description: roleNames.join(", "),
+    description: roleNames.length
+      ? roleNames.join(", ")
+      : config.commands.getroles.noRoles,
     fields: [
       {
         name: config.whitespace,

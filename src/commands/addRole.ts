@@ -41,7 +41,7 @@ export async function execute(
   await guildRepo.save(guild);
   return `${role.name} ${
     roleExisted
-      ? config.commands.addrole.existingrole
-      : config.commands.addrole.newrole
+      ? config.commands.addrole.existingRole
+      : config.commands.addrole.newRole
   }`;
 }

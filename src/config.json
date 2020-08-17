@@ -23,15 +23,16 @@
       "dm": true,
       "desc": "Adds a role to the list of user-assignable roles.",
       "usage": "addrole [role name] [role synonyms (optional)]",
-      "newrole": "was created",
-      "existingrole": "was added to the list of user-assignable roles"
+      "newRole": "was created",
+      "existingRole": "was added to the list of user-assignable roles"
     },
     "getroles": {
       "admin": false,
       "dm": true,
       "desc": "Get the list of user-assignable roles.",
       "usage": "getroles",
-      "dfUsage": "What roles are there?"
+      "dfUsage": "What roles are there?",
+      "noRoles": "No user-assignable roles added."
     },
     "removerole": {
       "admin": true,
