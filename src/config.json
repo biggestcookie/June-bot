@@ -52,7 +52,13 @@
       "dm": true,
       "desc": "Sends some of June's favorite memes",
       "usage": "meme [quantity (optional, max 5)]",
-      "dfUsage": "Give me 3 memes pronto"
+      "dfUsage": "Give me 3 memes pronto",
+      "subs": [
+        "animemes",
+        "wholesomeanimemes",
+        "wholesomememes",
+        "programmeranimemes",
+      ]
     },
     "purge": {
       "admin": false,

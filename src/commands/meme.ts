@@ -1,5 +1,6 @@
 import { getRandomTopPostsFromSubs } from "@/api/reddit";
 import { ArgsMap } from "@/utils/command";
+import config from "@/config.json";
 import { MessageEmbed } from "discord.js";
 
 export async function execute(
@@ -9,12 +10,7 @@ export async function execute(
   const isWholesome = args.get("isWholesome") === "true" || false;
   quantity = quantity = Math.min(quantity, 5);
 
-  const subs = [
-    "animemes",
-    "wholesomeanimemes",
-    "wholesomememes",
-    "programmeranimemes",
-  ];
+  const subs = config.commands.meme.subs;
 
   const wholesomeSubs = subs.filter((sub) => sub.includes("wholesome"));
 
