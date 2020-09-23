@@ -21,7 +21,8 @@ export class App {
   private async initDatabaseConnection() {
     await createConnection({
       type: process.env.DATABASE_TYPE,
-      url: process.env.DATABASE_URL,
+      url: process.env.DATABASE_TYPE !== 'sqlite' ? process.env.DATABASE_URL : undefined,
+      database: process.env.DATABASE_TYPE === 'sqlite' ? process.env.DATABASE_PATH : undefined,
       entities: [`${__dirname}/entities/*.js`],
       synchronize: true, // Use process.env.NODE_ENV to alter this value when in production!
     } as ConnectionOptions);

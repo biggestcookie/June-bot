@@ -18,7 +18,7 @@ export async function attemptExecuteCommand(
   try {
     const command = App.commands.get(commandName);
     const commandConfig = (config.commands as any)[commandName];
-    if (!commandConfig.dm && message.channel.type === "dm") {
+    if (!commandConfig?.dm && message.channel.type === "dm") {
       return config.text.error.dm;
     } else if (
       commandConfig.admin &&
