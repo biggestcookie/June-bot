@@ -22,7 +22,7 @@ export async function attemptExecuteCommand(
       return config.text.error.dm;
     } else if (
       commandConfig.admin &&
-      !message.member.hasPermission(["ADMINISTRATOR"])
+      !message.member?.hasPermission(["ADMINISTRATOR"])
     ) {
       return config.text.error.admin;
     } else if (commandConfig.argsRequired && !args?.size) {

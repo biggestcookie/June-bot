@@ -11,13 +11,19 @@ export async function execute(
   if (commandName) {
     return getCommandHelp(commandName);
   }
-  const commandList = Array.from(App.commands, ([key, value]) => ({
+  let commandList = Array.from(App.commands, ([key, value]) => ({
     name: key,
     ...value,
   }));
 
-  if (!message.member.hasPermission(["ADMINISTRATOR"])) {
-    commandList.filter(
+  if (message.channel.type === "dm") {
+    commandList = commandList.filter(
+      (command) => (config.commands as any)[command.name]["dm"]
+    );
+  }
+
+  if (!message.member?.hasPermission(["ADMINISTRATOR"])) {
+    commandList = commandList.filter(
       (command) => !(config.commands as any)[command.name]["admin"]
     );
   }
@@ -42,7 +48,10 @@ function getCommandHelp(commandName: string): MessageEmbed {
     ? `*or:* ${config.mention} ${commandConfig["dfUsage"]}`
     : `*${config.text.docs.noDialogflow}*`;
   const guildOnly = !!commandConfig["dm"]
-    ? "*" + config.text.docs.guildOnly + "*"
+    ? `*${config.text.docs.guildOnly}*`
+    : "";
+  const adminOnly = !!commandConfig["admin"]
+    ? `*${config.text.docs.adminOnly}*`
     : "";
 
   return new MessageEmbed({
@@ -55,6 +64,7 @@ function getCommandHelp(commandName: string): MessageEmbed {
 
       ${dfUsage}
       ${guildOnly}
+      ${adminOnly}
     `,
     color: "#ffacac",
   });
