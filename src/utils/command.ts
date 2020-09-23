@@ -25,6 +25,10 @@ export async function attemptExecuteCommand(
       !message.member.hasPermission(["ADMINISTRATOR"])
     ) {
       return config.text.error.admin;
+    } else if (commandConfig.argsRequired && !args?.size) {
+      return await App.commands.get("help")(
+        new Map(Object.entries({ commandName }))
+      );
     }
     return await command(args, message);
   } catch (error) {

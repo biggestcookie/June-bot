@@ -7,7 +7,7 @@ export async function execute(
   args: ArgsMap,
   message: Message
 ): Promise<MessageEmbed> {
-  const commandName = args.get(0) ?? args.get("commandname");
+  const commandName = args.get(0) ?? args.get("commandName");
   if (commandName) {
     return getCommandHelp(commandName);
   }

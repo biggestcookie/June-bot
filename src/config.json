@@ -20,6 +20,7 @@
     },
     "addrole": {
       "admin": true,
+      "argsRequired": true,
       "dm": true,
       "desc": "Adds a role to the list of user-assignable roles.",
       "usage": "addrole [role name] [role synonyms (optional)]",
@@ -36,12 +37,15 @@
     },
     "removerole": {
       "admin": true,
+      "argsRequired": true,
       "dm": true,
       "desc": "Removes a role from the list of user-assignable roles.",
-      "usage": "removerole [role name]"
+      "usage": "removerole [role name]",
+      "success": "was removed from the list of user-assignable roles"
     },
     "setrole": {
       "admin": false,
+      "argsRequired": true,
       "dm": true,
       "desc": "Assigns you a role.",
       "usage": "setrole [role name]",

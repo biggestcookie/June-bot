@@ -1,7 +1,7 @@
 import { ArgsMap } from "@/utils/command";
 
 export async function execute(args: ArgsMap): Promise<string> {
-  const role = args.get(0) ?? args.get("rolename");
+  const role = args.get(0) ?? args.get("roleName");
   return new Promise((resolve) => {
     setTimeout(() => resolve(role), 5000);
   });
