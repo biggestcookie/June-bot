@@ -18,7 +18,7 @@ export async function execute(_: any, message: Message): Promise<MessageEmbed> {
     fields: [
       {
         name: config.whitespace,
-        value: `Assign a role with ${config.prefix}addrole or by asking me with a @mention`,
+        value: `Assign a role with ${config.prefix}setrole or by asking me with a @mention`,
       },
     ],
     hexColor: "#ffacac",
