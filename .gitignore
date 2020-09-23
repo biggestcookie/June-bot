@@ -115,3 +115,4 @@ dist
 .pnp.*
 
 *.sqlite
+.vscode/settings.json
