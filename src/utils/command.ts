@@ -33,9 +33,9 @@ export async function attemptExecuteCommand(
     return await command(args, message);
   } catch (error) {
     console.log(error);
-    if (error instanceof TypeError) {
-      return config.text.error.not_found;
-    }
+    // if (error instanceof TypeError) {
+    //   return config.text.error.not_found;
+    // }
     return config.text.error.internal;
   }
 }
