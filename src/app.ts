@@ -24,6 +24,9 @@ export class App {
       url: process.env.DATABASE_URL,
       entities: [`${__dirname}/entities/*.js`],
       synchronize: true, // Use process.env.NODE_ENV to alter this value when in production!
+      ssl: {
+        rejectUnauthorized: false,
+      },
     } as ConnectionOptions);
   }
 
