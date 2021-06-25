@@ -1,5 +1,4 @@
 import { RoleEntity } from "@/entities/role";
-import { Message } from "discord.js";
 import { getRepository } from "typeorm";
 
 export async function execute(role: RoleEntity) {

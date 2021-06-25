@@ -18,7 +18,7 @@ function removeMention(str: string): string {
 }
 
 export async function requestFromDialogflow(
-  message: Message
+  message: Message,
 ): Promise<DfResponse> {
   let reply: string;
   let commandName: string;
@@ -26,7 +26,7 @@ export async function requestFromDialogflow(
 
   const sessionPath = dfClient.projectAgentSessionPath(
     process.env.GCP_ID,
-    message.author.id
+    message.author.id,
   );
   const request = {
     session: sessionPath,
@@ -53,10 +53,10 @@ export async function requestFromDialogflow(
         (map, [key, value]) => {
           return map.set(
             key,
-            value.stringValue ?? value.numberValue.toString()
+            value.stringValue ?? value.numberValue.toString(),
           );
         },
-        new Map()
+        new Map(),
       );
     }
   } catch (error) {
@@ -70,7 +70,7 @@ export async function requestFromDialogflow(
 export async function updateDialogflowEntityEntry(
   entityName: string,
   entry: string,
-  synonyms?: string[]
+  synonyms?: string[],
 ) {
   const entClient = new EntityTypesClient({
     credentials: JSON.parse(process.env.GCP_CREDENTIALS),
@@ -81,7 +81,7 @@ export async function updateDialogflowEntityEntry(
     parent: parentPath,
   });
   const entityType = dfEntities[0].find(
-    (entity) => entity.displayName === entityName
+    (entity) => entity.displayName === entityName,
   );
   await entClient.batchCreateEntities({
     parent: entityType.name,

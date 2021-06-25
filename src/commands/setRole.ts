@@ -6,7 +6,7 @@ import config from "@/config.json";
 
 export async function execute(
   args: ArgsMap,
-  message: Message
+  message: Message,
 ): Promise<string> {
   const roleName = args.get(0) ?? args.get("roleName");
   const roleEntity = await getRepository(RoleEntity).findOne({

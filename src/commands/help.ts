@@ -5,7 +5,7 @@ import { Message, MessageEmbed } from "discord.js";
 
 export async function execute(
   args: ArgsMap,
-  message: Message
+  message: Message,
 ): Promise<MessageEmbed> {
   const commandName = args.get(0) ?? args.get("commandName");
   if (commandName) {
@@ -18,13 +18,13 @@ export async function execute(
 
   if (message.channel.type === "dm") {
     commandList = commandList.filter(
-      (command) => (config.commands as any)[command.name]["dm"]
+      (command) => (config.commands as any)[command.name]["dm"],
     );
   }
 
   if (!message.member?.hasPermission(["ADMINISTRATOR"])) {
     commandList = commandList.filter(
-      (command) => !(config.commands as any)[command.name]["admin"]
+      (command) => !(config.commands as any)[command.name]["admin"],
     );
   }
 
@@ -47,10 +47,10 @@ function getCommandHelp(commandName: string): MessageEmbed {
   const dfUsage = commandConfig["dfUsage"]
     ? `*or:* ${config.mention} ${commandConfig["dfUsage"]}`
     : `*${config.text.docs.noDialogflow}*`;
-  const guildOnly = !!commandConfig["dm"]
+  const guildOnly = commandConfig["dm"]
     ? `*${config.text.docs.guildOnly}*`
     : "";
-  const adminOnly = !!commandConfig["admin"]
+  const adminOnly = commandConfig["admin"]
     ? `*${config.text.docs.adminOnly}*`
     : "";
 

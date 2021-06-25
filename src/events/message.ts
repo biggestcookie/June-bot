@@ -40,7 +40,7 @@ export async function execute(message: Message) {
     const completeReply = await attemptExecuteCommand(
       commandName,
       args,
-      message
+      message,
     );
     message.channel.stopTyping();
     if (completeReply instanceof Array) {

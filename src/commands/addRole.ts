@@ -8,7 +8,7 @@ import { getRepository } from "typeorm";
 
 export async function execute(
   args: ArgsMap,
-  message: Message
+  message: Message,
 ): Promise<string> {
   const roleName = args.get(0) ?? args.get("roleName");
   if (!roleName) throw Error(config.console.error.args);

@@ -22,7 +22,7 @@ function getDateRange(): { startDate: number; endDate: number } {
 
 export async function getRandomTopPostsFromSubs(
   subreddits: string[],
-  quantity = 1
+  quantity = 1,
 ): Promise<MessageEmbed[]> {
   const calls = Array.from({ length: quantity }, () => {
     const { startDate, endDate } = getDateRange();
@@ -54,7 +54,7 @@ export async function getRandomTopPostsFromSubs(
         .setAuthor(
           `r/${responseData.subreddit}`,
           redditIconUrl,
-          `https://reddit.com/r/${responseData.subreddit}`
+          `https://reddit.com/r/${responseData.subreddit}`,
         );
     }
     return message;
