@@ -34,7 +34,6 @@ export async function execute(
     description: `Available commands: ${commandNameList.join(", ")}
     
     **Usage:** ${config.prefix}${config.commands.help.usage}
-    
     *or:* ${config.mention} ${config.commands.help.dfUsage}
     `,
     color: "#ffacac",
@@ -47,7 +46,7 @@ function getCommandHelp(commandName: string): MessageEmbed {
   const dfUsage = commandConfig["dfUsage"]
     ? `*or:* ${config.mention} ${commandConfig["dfUsage"]}`
     : `*${config.text.docs.noDialogflow}*`;
-  const guildOnly = commandConfig["dm"]
+  const guildOnly = !commandConfig["dm"]
     ? `*${config.text.docs.guildOnly}*`
     : "";
   const adminOnly = commandConfig["admin"]
@@ -61,8 +60,8 @@ function getCommandHelp(commandName: string): MessageEmbed {
 
 
       **Usage:** ${config.prefix}${commandConfig["usage"]}
-
       ${dfUsage}
+      
       ${guildOnly}
       ${adminOnly}
     `,

@@ -16,7 +16,11 @@ export async function execute(
   let role = message.guild.roles.cache.find((role) => role.name === roleName);
   const roleExisted = !!role;
 
-  if (!roleExisted) {
+  if (roleExisted) {
+    if (!message.member?.hasPermission(["ADMINISTRATOR"])) {
+      return config.commands.addrole.notAdmin;
+    }
+  } else {
     role = await message.guild.roles.create({
       data: {
         name: roleName,

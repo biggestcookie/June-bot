@@ -19,13 +19,14 @@
       "dfUsage": "Tell me how to use [command name]"
     },
     "addrole": {
-      "admin": true,
+      "admin": false,
       "argsRequired": true,
       "dm": false,
       "desc": "Adds a role to the list of user-assignable roles.",
       "usage": "addrole [role name] [role synonyms (optional)]",
       "newRole": "was created",
-      "existingRole": "was added to the list of user-assignable roles"
+      "existingRole": "was added to the list of user-assignable roles",
+      "notAdmin": "Only admins can add existing roles to the user-assignable role list. However you can use this command to make a new user-assignable role."
     },
     "getroles": {
       "admin": false,
@@ -58,6 +59,15 @@
       "usage": "setrole [role name]",
       "dfUsage": "Set my role to [role name]",
       "success": "done, you now have the role"
+    },
+    "unsetrole": {
+      "admin": false,
+      "argsRequired": true,
+      "dm": false,
+      "desc": "Unassign a role you have.",
+      "usage": "unsetrole [role name]",
+      "dfUsage": "Unassign me from [role name]",
+      "success": "done, you no longer have the role"
     },
     "meme": {
       "admin": false,
