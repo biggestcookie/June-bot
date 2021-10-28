@@ -1,7 +1,6 @@
-import { getRandomBetweenRange } from "@/utils/utils";
+import { getRandomBetweenRange, getRandomElement } from "@/utils/utils";
 import axios from "axios";
 import { MessageEmbed } from "discord.js";
-import { getRandomElement } from "@/utils/utils";
 
 const url = "https://api.pushshift.io/reddit/search";
 const redditIconUrl =
@@ -9,11 +8,11 @@ const redditIconUrl =
 
 const instance = axios.create({
   baseURL: url,
-  timeout: 10000,
+  timeout: 1e4,
 });
 
 function getDateRange(): { startDate: number; endDate: number } {
-  const currentDate = Math.round(new Date().getTime() / 1000);
+  const currentDate = Math.round(new Date().getTime() / 1e3);
   const oneWeekAgo = currentDate - 604800;
   const twoYearsAgo = currentDate - 62899200;
   const randomDate = getRandomBetweenRange(twoYearsAgo, oneWeekAgo);
