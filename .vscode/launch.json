@@ -13,7 +13,7 @@
         "${workspaceFolder}/node_modules/**",
         "<node_internals>/**"
       ],
-      "preLaunchTask": "TSC: Build",
+      "preLaunchTask": "tsc: build",
       "smartStep": true,
       "envFile": "${workspaceFolder}/.env_dev"
     }
