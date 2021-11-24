@@ -21,7 +21,8 @@ export class App {
   private async initDatabaseConnection() {
     await createConnection({
       type: "sqlite",
-      database: "./db.sqlite",
+      database:
+        process.env.NODE_ENV === "production" ? "./db.sqlite" : "./dev.sqlite",
       entities: [`${__dirname}/entities/*.js`],
       synchronize: true, // Use process.env.NODE_ENV to alter this value when in production!
       ssl: {

@@ -23,7 +23,7 @@
         "@google-cloud/dialogflow": "^4.5.0",
         "@types/node": "^14.14.31",
         "axios": "^0.24.0",
-        "discord.js": "^13.3.0",
+        "discord.js": "^12.5.3",
         "dotenv": "^10.0.0",
         "module-alias": "^2.2.2",
         "sqlite3": "^5.0.2",

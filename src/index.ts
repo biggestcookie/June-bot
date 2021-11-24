@@ -12,6 +12,7 @@ async function init() {
         name: config.status,
       },
     },
+    partials: ["MESSAGE", "CHANNEL", "REACTION"],
   };
 
   try {
