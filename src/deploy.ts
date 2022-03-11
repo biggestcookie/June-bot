@@ -6,8 +6,7 @@ import {
   RESTPutAPIGuildApplicationCommandsPermissionsJSONBody,
   Routes,
 } from "discord-api-types/v9";
-import { readdir } from "fs/promises";
-import { Command } from "./models/command";
+import { commands } from "./commands";
 import "./utils/dotenv";
 
 const baseURL = "https://discord.com/api/v9";
@@ -20,19 +19,13 @@ const axiosInstance = axios.create({
   },
 });
 
-const commandInfosBody: RESTPutAPIApplicationCommandsJSONBody = [];
-const commandPerms = new Map<string, APIApplicationCommandPermission>();
+async function deployCommands() {
+  const commandInfosBody: RESTPutAPIApplicationCommandsJSONBody = [];
+  const commandPerms = new Map<string, APIApplicationCommandPermission>();
 
-async function importCommandInfos() {
-  const commandFiles = await readdir(`${process.cwd()}/dist/commands`);
-
-  for (const commandFile of commandFiles) {
-    const command = (
-      await import(`${process.cwd()}/dist/commands/${commandFile}`)
-    ).default as Command;
-
+  for (const [commandName, command] of Object.entries(commands)) {
     if (command.permissions) {
-      commandPerms.set(command.commandInfo.name, command.permissions);
+      commandPerms.set(commandName, command.permissions);
       commandInfosBody.push({
         ...command.commandInfo,
         default_permission: false,
@@ -41,10 +34,7 @@ async function importCommandInfos() {
       commandInfosBody.push(command.commandInfo);
     }
   }
-}
 
-async function deployCommands() {
-  await importCommandInfos();
   try {
     // Send command info to Discord
     const commandInfoCreateResponse: RESTPutAPIApplicationCommandsResult = (
@@ -59,16 +49,13 @@ async function deployCommands() {
 
     // Use returned command info IDs to build command permissions info
     const commandPermsBody: RESTPutAPIGuildApplicationCommandsPermissionsJSONBody =
-      [];
-    commandPerms.forEach((commandPerm, commandName) => {
-      commandPermsBody.push({
+      [...commandPerms].map(([commandName, commandPerm]) => ({
         id:
           commandInfoCreateResponse.find(
             (command) => command.name === commandName
           )?.id ?? "",
         permissions: [commandPerm],
-      });
-    });
+      }));
 
     // Send command permissions info
     await axiosInstance.put(

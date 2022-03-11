@@ -1,6 +1,6 @@
 import { Command } from "../models/command";
 
-const command: Command = {
+export const pingCommand: Command = {
   commandInfo: {
     name: "ping",
     description: "Replies 'pong'.",
@@ -9,5 +9,3 @@ const command: Command = {
     await interaction.reply("pong");
   },
 };
-
-export default command;

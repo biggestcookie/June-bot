@@ -1,7 +1,5 @@
-import { Client, ClientEvents, ClientOptions, Intents } from "discord.js";
-import { onInteractionCreate } from "./events/interactionCreate";
-import { onMessageReactionAdd } from "./events/messageReactionAdd";
-import { onMessageReactionRemove } from "./events/messageReactionRemove";
+import { Client, ClientOptions, Intents } from "discord.js";
+import { events } from "./events";
 import "./utils/dotenv";
 
 const clientOptions: ClientOptions = {
@@ -15,14 +13,6 @@ const clientOptions: ClientOptions = {
 const discordClient = new Client(clientOptions);
 
 async function startEventListeners(client: Client) {
-  const events: Partial<
-    Record<keyof ClientEvents, (...args: any) => Promise<void>>
-  > = {
-    interactionCreate: onInteractionCreate,
-    messageReactionAdd: onMessageReactionAdd,
-    messageReactionRemove: onMessageReactionRemove,
-  };
-
   Object.entries(events).map(([eventName, eventMethod]) => {
     client.on(eventName, async (...args) => {
       try {

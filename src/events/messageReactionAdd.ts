@@ -19,10 +19,7 @@ async function pinMessage(
   messageReaction: MessageReaction,
   reactionUser: User
 ) {
-  if (
-    !messageReaction.message.pinnable ||
-    reactionUser.id !== messageReaction.message.author?.id
-  ) {
+  if (!messageReaction.message.pinnable) {
     return;
   }
 

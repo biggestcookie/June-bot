@@ -19,10 +19,6 @@ async function unpinMessage(
   messageReaction: MessageReaction,
   reactionUser: User
 ) {
-  if (reactionUser.id !== messageReaction.message.author?.id) {
-    return;
-  }
-
   await messageReaction.message.unpin();
   console.log(
     `${new Date().toLocaleString()} - ${
