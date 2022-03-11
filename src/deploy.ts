@@ -19,7 +19,7 @@ const axiosInstance = axios.create({
   },
 });
 
-async function deployCommands() {
+export async function deployCommands() {
   const commandInfosBody: RESTPutAPIApplicationCommandsJSONBody = [];
   const commandPerms = new Map<string, APIApplicationCommandPermission>();
 
