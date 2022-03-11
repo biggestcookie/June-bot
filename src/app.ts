@@ -1,58 +1,43 @@
-import { Client, ClientEvents, ClientOptions } from "discord.js";
-import { readdir } from "fs";
-import { ConnectionOptions, createConnection } from "typeorm";
-import { Command } from "./utils/command";
+import { Client, ClientEvents, ClientOptions, Intents } from "discord.js";
+import { onInteractionCreate } from "./events/interactionCreate";
+import { onMessageReactionAdd } from "./events/messageReactionAdd";
+import { onMessageReactionRemove } from "./events/messageReactionRemove";
+import "./utils/dotenv";
 
-export class App {
-  public static client: Client;
-  static commands = new Map<string, Command>();
+const clientOptions: ClientOptions = {
+  partials: ["MESSAGE", "CHANNEL", "REACTION"],
+  intents: [
+    Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+    Intents.FLAGS.GUILD_MESSAGES,
+  ],
+};
 
-  constructor(clientOptions?: ClientOptions) {
-    App.client = new Client(clientOptions);
-  }
+const discordClient = new Client(clientOptions);
 
-  public async start() {
-    await this.initDatabaseConnection();
-    await this.startEventListeners();
-    await this.assignAllCommands();
-    App.client.login(process.env.DISCORD_TOKEN);
-  }
+async function startEventListeners(client: Client) {
+  const events: Partial<
+    Record<keyof ClientEvents, (...args: any) => Promise<void>>
+  > = {
+    interactionCreate: onInteractionCreate,
+    messageReactionAdd: onMessageReactionAdd,
+    messageReactionRemove: onMessageReactionRemove,
+  };
 
-  private async initDatabaseConnection() {
-    await createConnection({
-      type: "sqlite",
-      database:
-        process.env.NODE_ENV === "production" ? "./db.sqlite" : "./dev.sqlite",
-      entities: [`${__dirname}/entities/*.js`],
-      synchronize: true, // Use process.env.NODE_ENV to alter this value when in production!
-      ssl: {
-        rejectUnauthorized: false,
-      },
-    } as ConnectionOptions);
-  }
-
-  private async startEventListeners() {
-    readdir(`${__dirname}/events`, async (error, eventFiles) => {
-      if (error) throw error;
-      for (const eventFile of eventFiles) {
-        const eventName = eventFile.split(".")[0];
-        const eventMethod = await import(`${__dirname}/events/${eventFile}`);
-
-        App.client.on(eventName as keyof ClientEvents, async (...args) => {
-          await eventMethod.execute(...args);
-        });
+  Object.entries(events).map(([eventName, eventMethod]) => {
+    client.on(eventName, async (...args) => {
+      try {
+        await eventMethod(...args);
+      } catch (error) {
+        console.error(error);
       }
     });
-  }
-
-  private async assignAllCommands() {
-    readdir(`${__dirname}/commands`, async (error, commandFiles) => {
-      if (error) throw error;
-      for (const commandFile of commandFiles) {
-        const commandName = commandFile.split(".")[0];
-        const command = await import(`${__dirname}/commands/${commandFile}`);
-        App.commands.set(commandName.toLowerCase(), command.execute);
-      }
-    });
-  }
+  });
 }
+
+startEventListeners(discordClient);
+
+discordClient.once("ready", () => {
+  console.log("App running.");
+});
+
+discordClient.login(process.env.DISCORD_TOKEN);

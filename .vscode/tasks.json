@@ -2,21 +2,95 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "tsc: build",
+      "label": "npm: build",
       "type": "npm",
       "script": "build",
       "problemMatcher": "$tsc",
       "presentation": {
         "echo": true,
-        "reveal": "silent",
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "group": "build"
+    },
+    {
+      "label": "deploy:commands",
+      "type": "npm",
+      "script": "deploy:commands",
+      "problemMatcher": "$tsc",
+      "dependsOn": ["npm: build"],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "group": "build"
+    },
+    {
+      "label": "db:migrate",
+      "type": "npm",
+      "script": "db:migrate",
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
         "focus": false,
         "panel": "dedicated",
         "showReuseMessage": true,
         "clear": false
-      },
+      }
+    },
+    {
+      "label": "db:push",
+      "type": "npm",
+      "script": "db:push",
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": true,
+        "clear": false
+      }
+    },
+    {
+      "label": "npm: start",
+      "type": "npm",
+      "script": "start",
+      "problemMatcher": "$tsc",
+      "dependsOn": ["npm: build"],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      }
+    },
+    {
+      "label": "npm: dev",
+      "type": "npm",
+      "script": "dev",
+      "problemMatcher": "$tsc",
       "group": {
         "kind": "build",
         "isDefault": true
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
       }
     }
   ]

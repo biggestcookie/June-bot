@@ -1,12 +1,32 @@
-import { fetchCachedReaction } from "@/utils/fetchCachedReaction";
 import { MessageReaction, User } from "discord.js";
+import { fetchPartial } from "../utils/fetchPartial";
 
-export async function execute(messageReaction: MessageReaction, _: User) {
-  messageReaction = await fetchCachedReaction(messageReaction);
+export async function onMessageReactionRemove(
+  messageReaction: MessageReaction,
+  reactionUser: User
+) {
+  messageReaction = await fetchPartial(messageReaction);
+  switch (messageReaction.emoji.name) {
+    case "📌":
+      unpinMessage(messageReaction, reactionUser);
+      break;
+    default:
+      break;
+  }
+}
 
-  if (!messageReaction.message.pinned || messageReaction.emoji.name !== "📌") {
+async function unpinMessage(
+  messageReaction: MessageReaction,
+  reactionUser: User
+) {
+  if (reactionUser.id !== messageReaction.message.author?.id) {
     return;
   }
-  console.log("Unpinning message: " + messageReaction.message.cleanContent);
+
   await messageReaction.message.unpin();
+  console.log(
+    `${new Date().toLocaleString()} - ${
+      reactionUser.username
+    } unpinned message: ${messageReaction.message.cleanContent}`
+  );
 }

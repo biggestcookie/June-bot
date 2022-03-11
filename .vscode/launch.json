@@ -15,7 +15,7 @@
       ],
       "preLaunchTask": "tsc: build",
       "smartStep": true,
-      "envFile": "${workspaceFolder}/.env_dev"
+      "envFile": "${workspaceFolder}/.env"
     }
   ]
 }
