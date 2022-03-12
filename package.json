@@ -10,7 +10,7 @@
   "scripts": {
     "build": "tsc -b",
     "start": "node dist/app.js",
-    "dev": "ts-node-dev src/app.ts",
+    "dev": "ts-node-dev --transpile-only src/app.ts",
     "commands:dev": "ts-node src/deploy.ts",
     "db:migrate": "prisma migrate dev",
     "db:push": "prisma db push",

@@ -1,6 +1,7 @@
 import { Client, ClientOptions, Intents } from "discord.js";
-import "./deploy";
+import config from "./config.json";
 import { events } from "./events";
+import { startFlaskRoutine } from "./routines/flask";
 import "./utils/dotenv";
 
 const clientOptions: ClientOptions = {
@@ -9,11 +10,20 @@ const clientOptions: ClientOptions = {
     Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
     Intents.FLAGS.GUILD_MESSAGES,
   ],
+  presence: {
+    status: "online",
+    activities: [
+      {
+        name: config.status,
+        type: "LISTENING",
+      },
+    ],
+  },
 };
 
-const discordClient = new Client(clientOptions);
+const client = new Client(clientOptions);
 
-async function startEventListeners(client: Client) {
+function startEventListeners() {
   for (const [eventName, eventMethod] of Object.entries(events)) {
     client.on(eventName, async (...args) => {
       try {
@@ -23,12 +33,19 @@ async function startEventListeners(client: Client) {
       }
     });
   }
+  console.log(config.console.events);
 }
 
-startEventListeners(discordClient);
+function startRoutines() {
+  startFlaskRoutine(client);
+  console.log(config.console.routines);
+}
 
-discordClient.once("ready", () => {
+startEventListeners();
+startRoutines();
+
+client.once("ready", () => {
   console.log("App running.");
 });
 
-discordClient.login(process.env.DISCORD_TOKEN);
+client.login(process.env.DISCORD_TOKEN);

@@ -1,0 +1,118 @@
+{
+  "status": "your conversations 👁️👁️",
+  "mention": "<@703251733954166828>",
+  "console": {
+    "ready": "App running.",
+    "events": "Started event listeners.",
+    "routines": "Started routines.",
+    "guildCreate": "Added to server.",
+    "guildDelete": "Removed from server.",
+    "error": {
+      "args": "Missing arguments."
+    }
+  },
+  "commands": {
+    "help": {
+      "admin": false,
+      "dm": true,
+      "desc": "Describes a command and how to use it.",
+      "usage": "help [command name (optional)]",
+      "dfUsage": "Tell me how to use [command name]"
+    },
+    "addrole": {
+      "admin": false,
+      "argsRequired": true,
+      "dm": false,
+      "desc": "Adds a role to the list of user-assignable roles.",
+      "usage": "addrole [role name] [role synonyms (optional)]",
+      "newRole": "was created",
+      "existingRole": "was added to the list of user-assignable roles",
+      "notAdmin": "Only admins can add existing roles to the user-assignable role list. However you can use this command to make a new user-assignable role."
+    },
+    "getroles": {
+      "admin": false,
+      "dm": false,
+      "desc": "Get the list of user-assignable roles.",
+      "usage": "getroles",
+      "dfUsage": "What roles are there?",
+      "noRoles": "No user-assignable roles added."
+    },
+    "removerole": {
+      "admin": true,
+      "argsRequired": true,
+      "dm": true,
+      "desc": "Removes a role from the list of user-assignable roles.",
+      "usage": "removerole [role name]",
+      "success": "was removed from the list of user-assignable roles"
+    },
+    "say": {
+      "admin": true,
+      "argsRequired": true,
+      "dm": true,
+      "desc": "Provide the bot a message to say.",
+      "usage": "say [message]"
+    },
+    "setrole": {
+      "admin": false,
+      "argsRequired": true,
+      "dm": false,
+      "desc": "Assigns you a role.",
+      "usage": "setrole [role name]",
+      "dfUsage": "Set my role to [role name]",
+      "success": "done, you now have the role"
+    },
+    "unsetrole": {
+      "admin": false,
+      "argsRequired": true,
+      "dm": false,
+      "desc": "Unassign a role you have.",
+      "usage": "unsetrole [role name]",
+      "dfUsage": "Unassign me from [role name]",
+      "success": "done, you no longer have the role"
+    },
+    "meme": {
+      "admin": false,
+      "dm": true,
+      "desc": "Sends some of June's favorite memes",
+      "usage": "meme [quantity (optional, max 5)]",
+      "dfUsage": "Give me 3 memes pronto",
+      "subs": [
+        "animemes",
+        "wholesomeanimemes",
+        "wholesomememes",
+        "programmeranimemes"
+      ]
+    },
+    "purge": {
+      "admin": false,
+      "dm": true,
+      "desc": "Deletes your last message(s).",
+      "usage": "purge [quantity (optional, max 10)]",
+      "dfUsage": "Delete my last 5 messages please"
+    }
+  },
+  "text": {
+    "error": {
+      "admin": "i dont think youre allowed to do that",
+      "dialogflow": "err0r 4o4",
+      "dm": "cant do this in the DMs, ask me in a server",
+      "exists": "already exists doofus",
+      "internal": "didnt work sorry",
+      "not_found": "sorry i dont know that command",
+      "role": "i couldnt find that role sorry"
+    },
+    "docs": {
+      "adminOnly": "Admin-only command.",
+      "guildOnly": "Can only use this in a server.",
+      "noDialogflow": "Can't use a @mention to run this command."
+    },
+    "success": ["done", "its done"],
+    "flask": [
+      "eat potassium homie",
+      "wake up babe, its time for your pill",
+      "pill time! also dont forget to get a refill if you need it",
+      "potassium",
+      "eat potassium, and dont forget refill pls"
+    ]
+  }
+}
