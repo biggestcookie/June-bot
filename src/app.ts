@@ -1,5 +1,5 @@
 import { Client, ClientOptions, Intents } from "discord.js";
-import { deployCommands } from "./deploy";
+import "./deploy";
 import { events } from "./events";
 import "./utils/dotenv";
 
@@ -26,10 +26,6 @@ async function startEventListeners(client: Client) {
 }
 
 startEventListeners(discordClient);
-
-if (process.env.NODE_ENV !== "production") {
-  deployCommands();
-}
 
 discordClient.once("ready", () => {
   console.log("App running.");
