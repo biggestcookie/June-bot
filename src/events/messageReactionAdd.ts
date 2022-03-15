@@ -1,5 +1,6 @@
 import { MessageReaction, User } from "discord.js";
 import { fetchPartial } from "../utils/fetchPartial";
+import { log } from "../utils/logger";
 
 export async function onMessageReactionAdd(
   messageReaction: MessageReaction,
@@ -8,27 +9,23 @@ export async function onMessageReactionAdd(
   messageReaction = await fetchPartial(messageReaction);
   switch (messageReaction.emoji.name) {
     case "📌":
-      pinMessage(messageReaction, reactionUser);
+      pinMessage(messageReaction);
+      log(
+        `pinned message: ${messageReaction.message.cleanContent}`,
+        reactionUser.username
+      );
       break;
     default:
       break;
   }
 }
 
-async function pinMessage(
-  messageReaction: MessageReaction,
-  reactionUser: User
-) {
+async function pinMessage(messageReaction: MessageReaction) {
   if (!messageReaction.message.pinnable) {
     return;
   }
 
   await messageReaction.message.pin();
-  console.log(
-    `${new Date().toLocaleString()} - ${
-      reactionUser.username
-    } pinned message: ${messageReaction.message.cleanContent}`
-  );
 
   setTimeout(async () => {
     const fetchedMessages =

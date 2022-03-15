@@ -1,5 +1,6 @@
 import { MessageReaction, User } from "discord.js";
 import { fetchPartial } from "../utils/fetchPartial";
+import { log } from "../utils/logger";
 
 export async function onMessageReactionRemove(
   messageReaction: MessageReaction,
@@ -20,9 +21,8 @@ async function unpinMessage(
   reactionUser: User
 ) {
   await messageReaction.message.unpin();
-  console.log(
-    `${new Date().toLocaleString()} - ${
-      reactionUser.username
-    } unpinned message: ${messageReaction.message.cleanContent}`
+  log(
+    `unpinned message: ${messageReaction.message.cleanContent}`,
+    reactionUser.username
   );
 }

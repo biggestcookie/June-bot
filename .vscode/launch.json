@@ -8,14 +8,19 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
-      "program": "${workspaceFolder}/dist/index.js",
-      "skipFiles": [
-        "${workspaceFolder}/node_modules/**",
-        "<node_internals>/**"
-      ],
-      "preLaunchTask": "tsc: build",
+      "runtimeArgs": ["--nolazy", "-r", "ts-node/register/transpile-only"],
+      "args": ["src/app.ts"],
+      "skipFiles": ["node_modules/**", "<node_internals>/**"],
       "smartStep": true,
-      "envFile": "${workspaceFolder}/.env"
+      "envFile": "${workspaceFolder}/.env_dev"
+    },
+    {
+      "name": "Attach",
+      "port": 9229,
+      "request": "attach",
+      "skipFiles": ["node_modules/**", "<node_internals>/**"],
+      "type": "pwa-node",
+      "smartStep": true
     }
   ]
 }

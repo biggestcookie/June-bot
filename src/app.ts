@@ -1,14 +1,20 @@
 import { Client, ClientOptions, Intents } from "discord.js";
+import { performance } from "perf_hooks";
 import config from "./config.json";
 import { events } from "./events";
 import { startFlaskRoutine } from "./routines/flask";
 import "./utils/dotenv";
+import { log } from "./utils/logger";
+
+const startTime = performance.now();
 
 const clientOptions: ClientOptions = {
   partials: ["MESSAGE", "CHANNEL", "REACTION"],
   intents: [
-    Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+    Intents.FLAGS.DIRECT_MESSAGES,
+    Intents.FLAGS.GUILDS,
     Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
   ],
   presence: {
     status: "online",
@@ -33,19 +39,25 @@ function startEventListeners() {
       }
     });
   }
-  console.log(config.console.events);
+  log("Started event listeners.");
 }
 
 function startRoutines() {
-  startFlaskRoutine(client);
-  console.log(config.console.routines);
+  startFlaskRoutine();
+  log("Started routines.");
 }
 
 startEventListeners();
 startRoutines();
 
 client.once("ready", () => {
-  console.log("App running.");
+  log(
+    `App running in ${((performance.now() - startTime) * 1e-3).toFixed(
+      4
+    )} seconds.`
+  );
 });
 
 client.login(process.env.DISCORD_TOKEN);
+
+export { client };

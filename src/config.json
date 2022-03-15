@@ -1,16 +1,6 @@
 {
   "status": "your conversations 👁️👁️",
   "mention": "<@703251733954166828>",
-  "console": {
-    "ready": "App running.",
-    "events": "Started event listeners.",
-    "routines": "Started routines.",
-    "guildCreate": "Added to server.",
-    "guildDelete": "Removed from server.",
-    "error": {
-      "args": "Missing arguments."
-    }
-  },
   "commands": {
     "help": {
       "admin": false,
