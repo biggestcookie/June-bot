@@ -10,8 +10,8 @@
   "scripts": {
     "build": "tsc -b",
     "start": "node dist/app.js",
-    "dev": "ts-node-dev --transpile-only  --inspect -- src/app.ts",
-    "commands:dev": "ts-node src/deploy.ts",
+    "dev": "ts-node-dev --inspect -- src/app.ts",
+    "deploy:commands": "ts-node src/deploy.ts",
     "db:migrate": "prisma migrate dev",
     "db:push": "prisma db push",
     "lint:fix": "eslint ./ --ext .js,.ts --quiet --fix --ignore-path ./.gitignore",

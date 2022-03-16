@@ -1,4 +1,4 @@
-import { Command } from "../models/command";
+import { Command } from ".";
 
 export const pingCommand: Command = {
   commandInfo: {

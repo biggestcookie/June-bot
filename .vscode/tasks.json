@@ -17,9 +17,9 @@
       "group": "build"
     },
     {
-      "label": "commands:dev",
+      "label": "deploy:commands",
       "type": "npm",
-      "script": "commands:dev",
+      "script": "deploy:commands",
       "problemMatcher": "$tsc",
       "presentation": {
         "echo": true,
@@ -78,7 +78,7 @@
       "label": "npm: dev",
       "type": "npm",
       "script": "dev",
-      "problemMatcher": "$tsc",
+      "problemMatcher": "$tsc-watch",
       "group": {
         "kind": "build",
         "isDefault": true

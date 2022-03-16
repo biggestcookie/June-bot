@@ -1,3 +1,4 @@
+import "./utils/dotenv";
 import axios from "axios";
 import {
   APIApplicationCommandPermission,
@@ -7,7 +8,6 @@ import {
   Routes,
 } from "discord-api-types/v9";
 import { commands } from "./commands";
-import "./utils/dotenv";
 
 const baseURL = "https://discord.com/api/v9";
 
@@ -35,40 +35,40 @@ export async function deployCommands() {
     }
   }
 
-  try {
-    // Send command info to Discord
-    const commandInfoCreateResponse: RESTPutAPIApplicationCommandsResult = (
-      await axiosInstance.put(
-        Routes.applicationGuildCommands(
-          process.env.DISCORD_CLIENT!,
-          process.env.DISCORD_GUILD!
-        ),
-        commandInfosBody
-      )
-    ).data;
-
-    // Use returned command info IDs to build command permissions info
-    const commandPermsBody: RESTPutAPIGuildApplicationCommandsPermissionsJSONBody =
-      [...commandPerms].map(([commandName, commandPerm]) => ({
-        id:
-          commandInfoCreateResponse.find(
-            (command) => command.name === commandName
-          )?.id ?? "",
-        permissions: [commandPerm],
-      }));
-
-    // Send command permissions info
+  // Send command info to Discord
+  const commandInfoCreateResponse: RESTPutAPIApplicationCommandsResult = (
     await axiosInstance.put(
-      Routes.guildApplicationCommandsPermissions(
+      Routes.applicationGuildCommands(
         process.env.DISCORD_CLIENT!,
         process.env.DISCORD_GUILD!
       ),
-      commandPermsBody
-    );
-    console.log("Registered guild commands.");
-  } catch (error) {
-    console.error(error);
+      commandInfosBody
+    )
+  ).data;
+
+  if (commandPerms.size < 1) {
+    return;
   }
+
+  // Use returned command info IDs to build command permissions info
+  const commandPermsBody: RESTPutAPIGuildApplicationCommandsPermissionsJSONBody =
+    [...commandPerms].map(([commandName, commandPerm]) => ({
+      id:
+        commandInfoCreateResponse.find(
+          (command) => command.name === commandName
+        )?.id ?? "",
+      permissions: [commandPerm],
+    }));
+
+  // Send command permissions info
+  await axiosInstance.put(
+    Routes.guildApplicationCommandsPermissions(
+      process.env.DISCORD_CLIENT!,
+      process.env.DISCORD_GUILD!
+    ),
+    commandPermsBody
+  );
+  console.log("Registered guild commands.");
 }
 
-deployCommands();
+deployCommands().catch(console.error);
