@@ -1,9 +1,9 @@
+import "./utils/dotenv";
 import { Client, ClientOptions, Intents } from "discord.js";
 import { performance } from "perf_hooks";
 import config from "./config.json";
 import { events } from "./events";
 import { startFlaskRoutine } from "./routines/flask";
-import "./utils/dotenv";
 import { log } from "./utils/logger";
 
 const startTime = performance.now();

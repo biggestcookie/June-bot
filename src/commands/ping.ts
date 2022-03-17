@@ -5,7 +5,7 @@ export const pingCommand: Command = {
     name: "ping",
     description: "Replies 'pong'.",
   },
-  execute: async (interaction) => {
-    await interaction.reply("pong");
+  execute: async () => {
+    return "pong";
   },
 };
