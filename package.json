@@ -12,6 +12,7 @@
     "start": "node dist/app.js",
     "dev": "ts-node-dev --inspect -- src/app.ts",
     "commands:dev": "ts-node src/deploy.ts",
+    "commands:prod": "export NODE_ENV=production && node dist/deploy.js",
     "migrate:dev": "prisma migrate dev",
     "migrate:deploy": "prisma migrate deploy",
     "lint:fix": "eslint ./ --ext .js,.ts --quiet --fix --ignore-path ./.gitignore",

@@ -75,6 +75,11 @@ export async function deployCommands() {
 
 deployCommands()
   .then(() =>
-    log(`Registered guild commands in ${performance.now() - startTime}`)
+    log(
+      `Registered guild commands in ${(
+        (performance.now() - startTime) *
+        1e-3
+      ).toFixed(4)} seconds.`
+    )
   )
   .catch(console.error);
