@@ -17,9 +17,9 @@
       "group": "build"
     },
     {
-      "label": "deploy:commands",
+      "label": "commands:dev",
       "type": "npm",
-      "script": "deploy:commands",
+      "script": "commands:dev",
       "problemMatcher": "$tsc",
       "presentation": {
         "echo": true,

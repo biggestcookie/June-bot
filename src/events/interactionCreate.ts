@@ -1,5 +1,5 @@
-import { CacheType, CommandInteraction, Interaction } from "discord.js";
-import { commands, Reply } from "../commands";
+import { CacheType, Interaction } from "discord.js";
+import { commands } from "../commands";
 import { log } from "../utils/logger";
 
 export async function onInteractionCreate(interaction: Interaction<CacheType>) {
@@ -7,25 +7,14 @@ export async function onInteractionCreate(interaction: Interaction<CacheType>) {
     return;
   }
   const command = commands[interaction.commandName];
-  const replies = await command?.execute(interaction);
-  await sendInteractionReplies(interaction, replies);
+
+  if (!command || !("executeSlashCommand" in command)) {
+    throw Error(`Slash command: ${interaction.commandName} not found`);
+  }
+
+  await command.executeSlashCommand(interaction);
   log(
-    `executed command as interaction: ${command?.commandInfo.name}`,
+    `executed command as interaction: ${interaction.commandName}`,
     interaction.user.username
   );
-}
-
-async function sendInteractionReplies(
-  interaction: CommandInteraction,
-  replies: Reply | Reply[]
-) {
-  if (replies instanceof Array) {
-    const [initialReply, ...followUpReplies] = replies;
-    await interaction.reply(initialReply);
-    for (const reply of followUpReplies) {
-      await interaction.followUp(reply);
-    }
-  } else {
-    await interaction.reply(replies);
-  }
 }

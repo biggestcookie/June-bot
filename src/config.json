@@ -85,18 +85,13 @@
     "error": {
       "admin": "i dont think youre allowed to do that",
       "dialogflow": "err0r 4o4",
-      "dm": "cant do this in the DMs, ask me in a server",
+      "channel": "cant do this here, ask me in a channel",
       "exists": "already exists doofus",
       "internal": "didnt work sorry",
       "not_found": "sorry i dont know that command",
       "role": "i couldnt find that role sorry"
     },
-    "docs": {
-      "adminOnly": "Admin-only command.",
-      "guildOnly": "Can only use this in a server.",
-      "noDialogflow": "Can't use a @mention to run this command."
-    },
-    "success": ["done", "its done"],
+    "success": ["done", "its done", "all done"],
     "flask": [
       "eat potassium homie",
       "wake up babe, its time for your pill",

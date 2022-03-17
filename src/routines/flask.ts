@@ -2,7 +2,7 @@ import { User } from "discord.js";
 import { scheduleJob } from "node-schedule";
 import { client } from "../app";
 import config from "../config.json";
-import { log } from "../utils/logger";
+import { log, logError } from "../utils/logger";
 import { randomElement } from "../utils/random";
 
 export async function startFlaskRoutine() {
@@ -17,6 +17,6 @@ async function messageFlask(flaskUser: User) {
     flaskUser.send(messageText);
     log(`Sent flask reminder: ${messageText}`);
   } catch (error) {
-    console.error(error);
+    logError(error);
   }
 }

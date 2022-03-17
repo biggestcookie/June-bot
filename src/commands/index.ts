@@ -2,22 +2,32 @@ import {
   APIApplicationCommandPermission,
   RESTPostAPIApplicationCommandsJSONBody,
 } from "discord-api-types/v9";
-import { CommandInteraction, Message, MessagePayload } from "discord.js";
+import { CommandInteraction, Message } from "discord.js";
 import { pingCommand } from "../commands/ping";
+import { juneCommand } from "./june";
 
-export type Reply = string | MessagePayload;
-
-export interface Command {
+export interface SlashCommand {
   commandInfo: RESTPostAPIApplicationCommandsJSONBody;
   permissions?: APIApplicationCommandPermission;
-  execute: (
-    source: CommandInteraction | Message,
+  executeSlashCommand: (
+    interaction: CommandInteraction,
     ...args: any
-  ) => Promise<Reply | Reply[]>;
+  ) => Promise<void>;
 }
 
-export const commands: Record<string, Command> = {
+export interface DialogflowCommand {
+  dialogflowEnabled: true;
+  executeDialogflowCommand: (message: Message, ...args: any) => Promise<void>;
+}
+
+export type CombinedCommand = DialogflowCommand & SlashCommand;
+
+export const commands: Record<
+  string,
+  SlashCommand | DialogflowCommand | CombinedCommand
+> = {
   [pingCommand.commandInfo.name]: pingCommand,
+  [juneCommand.commandInfo.name]: juneCommand,
 };
 
 export function isInteraction(source: CommandInteraction | Message): boolean {

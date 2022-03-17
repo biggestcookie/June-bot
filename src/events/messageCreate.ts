@@ -1,7 +1,7 @@
-import { ClientEvents, Message, TextBasedChannel, User } from "discord.js";
+import { ClientEvents, Message, User } from "discord.js";
 import { getFromDialogFlow } from "../api/dialogflow";
 import { client } from "../app";
-import { commands, Reply } from "../commands";
+import { commands } from "../commands";
 import { log } from "../utils/logger";
 
 export async function onMessageCreate(message: Message) {
@@ -9,8 +9,14 @@ export async function onMessageCreate(message: Message) {
     (!message.mentions.everyone && message.mentions.has(client.user as User)) ||
     message.channel.type === "DM";
 
+  const isInThread =
+    message.channel.type === "GUILD_PUBLIC_THREAD" ||
+    message.channel.type === "GUILD_PRIVATE_THREAD";
+
+  const isBotThread = isInThread && message.channel.ownerId === client.user?.id;
+
   if (
-    !isMentionsJune ||
+    (!isMentionsJune && !isBotThread) ||
     !message.channel.isText() ||
     message.author.id === client.user?.id
   ) {
@@ -28,28 +34,12 @@ export async function onMessageCreate(message: Message) {
     await message.channel.send(initialReply);
   }
 
-  if (command) {
+  if (command && "dialogflowEnabled" in command) {
     await message.channel.sendTyping();
-    const replies = await command.execute(message, args);
-    if (replies) {
-      await sendMessageReplies(replies, message.channel);
-    }
+    await command.executeDialogflowCommand(message, args);
     log(
-      `executed command as Dialogflow message: ${command?.commandInfo.name}`,
+      `executed command as Dialogflow message: ${commandName}`,
       message.author?.username
     );
-  }
-}
-
-async function sendMessageReplies(
-  replies: Reply | Reply[],
-  channel: TextBasedChannel
-) {
-  if (replies instanceof Array) {
-    for (const reply of replies) {
-      await channel.send(reply);
-    }
-  } else {
-    await channel.send(replies);
   }
 }

@@ -7,8 +7,11 @@ import {
   RESTPutAPIGuildApplicationCommandsPermissionsJSONBody,
   Routes,
 } from "discord-api-types/v9";
+import { performance } from "perf_hooks";
 import { commands } from "./commands";
+import { log } from "./utils/logger";
 
+const startTime = performance.now();
 const baseURL = "https://discord.com/api/v9";
 
 const axiosInstance = axios.create({
@@ -24,13 +27,13 @@ export async function deployCommands() {
   const commandPerms = new Map<string, APIApplicationCommandPermission>();
 
   for (const [commandName, command] of Object.entries(commands)) {
-    if (command.permissions) {
+    if ("permissions" in command && command.permissions) {
       commandPerms.set(commandName, command.permissions);
       commandInfosBody.push({
         ...command.commandInfo,
         default_permission: false,
       });
-    } else {
+    } else if ("commandInfo" in command) {
       commandInfosBody.push(command.commandInfo);
     }
   }
@@ -68,7 +71,10 @@ export async function deployCommands() {
     ),
     commandPermsBody
   );
-  console.log("Registered guild commands.");
 }
 
-deployCommands().catch(console.error);
+deployCommands()
+  .then(() =>
+    log(`Registered guild commands in ${performance.now() - startTime}`)
+  )
+  .catch(console.error);

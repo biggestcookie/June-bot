@@ -4,7 +4,7 @@ import { performance } from "perf_hooks";
 import config from "./config.json";
 import { events } from "./events";
 import { startFlaskRoutine } from "./routines/flask";
-import { log } from "./utils/logger";
+import { log, logError } from "./utils/logger";
 
 const startTime = performance.now();
 
@@ -35,7 +35,7 @@ function startEventListeners() {
       try {
         await eventMethod(...args);
       } catch (error) {
-        console.error(error);
+        logError(error);
       }
     });
   }
