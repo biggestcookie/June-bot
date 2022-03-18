@@ -4,7 +4,7 @@ import {
 } from "discord-api-types/v9";
 import { CommandInteraction, Message } from "discord.js";
 import { pingCommand } from "../commands/ping";
-import { juneCommand } from "./june";
+import { chatCommand } from "./chat";
 
 export interface SlashCommand {
   commandInfo: RESTPostAPIApplicationCommandsJSONBody;
@@ -27,7 +27,7 @@ export const commands: Record<
   SlashCommand | DialogflowCommand | CombinedCommand
 > = {
   [pingCommand.commandInfo.name]: pingCommand,
-  [juneCommand.commandInfo.name]: juneCommand,
+  [chatCommand.commandInfo.name]: chatCommand,
 };
 
 export function isInteraction(source: CommandInteraction | Message): boolean {

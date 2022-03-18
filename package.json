@@ -9,6 +9,7 @@
   },
   "scripts": {
     "build": "tsc -b",
+    "prestart": "npm run build && npm run commands:prod",
     "start": "node dist/app.js",
     "dev": "ts-node-dev --inspect -- src/app.ts",
     "commands:dev": "ts-node src/deploy.ts",

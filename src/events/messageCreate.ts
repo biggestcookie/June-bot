@@ -6,8 +6,7 @@ import { log } from "../utils/logger";
 
 export async function onMessageCreate(message: Message) {
   const isMentionsJune =
-    (!message.mentions.everyone && message.mentions.has(client.user as User)) ||
-    message.channel.type === "DM";
+    !message.mentions.everyone && message.mentions.has(client.user as User);
 
   const isInThread =
     message.channel.type === "GUILD_PUBLIC_THREAD" ||
@@ -16,7 +15,8 @@ export async function onMessageCreate(message: Message) {
   const isBotThread = isInThread && message.channel.ownerId === client.user?.id;
 
   if (
-    (!isMentionsJune && !isBotThread) ||
+    !isBotThread ||
+    !isMentionsJune ||
     !message.channel.isText() ||
     message.author.id === client.user?.id
   ) {

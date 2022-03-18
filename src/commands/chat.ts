@@ -2,9 +2,9 @@ import { CommandInteraction, Message } from "discord.js";
 import { isInteraction, SlashCommand } from ".";
 import config from "../config.json";
 
-export const juneCommand: SlashCommand = {
+export const chatCommand: SlashCommand = {
   commandInfo: {
-    name: "june",
+    name: "chat",
     description: "Starts a thread for chatting with June.",
   },
   executeSlashCommand: async (source: CommandInteraction) => {
@@ -17,7 +17,7 @@ export const juneCommand: SlashCommand = {
     }
 
     const reply = (await source.reply({
-      content: ":thread:",
+      content: config.text.chat,
       fetchReply: true,
     })) as Message<boolean>;
 
