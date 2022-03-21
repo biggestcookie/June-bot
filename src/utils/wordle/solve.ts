@@ -1,5 +1,5 @@
-import config from "../config.json";
-import { randomElement } from "../utils/random";
+import config from "../../config.json";
+import { randomElement } from "../random";
 import answers from "./answers.json";
 
 enum Placement {
@@ -9,8 +9,6 @@ enum Placement {
 }
 
 type LetterPlacement = [letter: string, placement: Placement];
-
-const alphabet = "abcdefghijklmnopqrstuvwxyz";
 
 interface GuessProgress {
   previousGuesses: Set<string>;
@@ -138,14 +136,9 @@ function createGuess(guessProgress: GuessProgress): string {
     if (knownLetters[index]) {
       searchRegexString += knownLetters[index];
     } else {
+      // Add letters to allow in search, removing all excluded letters
+      const alphabet = "abcdefghijklmnopqrstuvwxyz";
       let letterRange = "[";
-
-      const excludedLetters = [...badLetters.values()];
-      for (const [unknownLetter, indices] of unknownLetterIndices) {
-        if (indices.has(index)) {
-          excludedLetters.push(unknownLetter);
-        }
-      }
 
       for (const letter of alphabet) {
         const unknownLetterIndex = unknownLetterIndices.get(letter);

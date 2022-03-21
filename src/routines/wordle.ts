@@ -2,7 +2,7 @@ import { GuildTextBasedChannel } from "discord.js";
 import { scheduleJob } from "node-schedule";
 import { client } from "../app";
 import { log, logError } from "../utils/logger";
-import { solveWordle } from "../wordle/solve";
+import { solveWordle } from "../utils/wordle/solve";
 
 export async function startWordleRoutine() {
   const wordleChannel = (await client.channels.fetch(
