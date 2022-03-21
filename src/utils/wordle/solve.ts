@@ -203,9 +203,3 @@ function getWordleCount(date?: Date): number {
     (endDate.getTime() - startDate.getTime()) / milliSecondsToDay
   );
 }
-
-// const startTime = performance.now();
-// console.log(solveWordle());
-// console.log(
-//   `Solved in ${((performance.now() - startTime) * 1e-3).toFixed(4)} seconds.`
-// );
