@@ -15,7 +15,7 @@ async function messageFlask(flaskUser: User) {
   try {
     const messageText = randomElement(config.text.flask);
     flaskUser.send(messageText);
-    log(`Sent flask reminder: ${messageText}`);
+    log(`Routine: flask reminder - ${messageText}`);
   } catch (error) {
     logError(error);
   }
