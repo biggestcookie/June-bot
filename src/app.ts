@@ -4,6 +4,7 @@ import { performance } from "perf_hooks";
 import config from "./config.json";
 import { events } from "./events";
 import { startFlaskRoutine } from "./routines/flask";
+import { startWordleRoutine } from "./routines/wordle";
 import { log, logError } from "./utils/logger";
 
 const startTime = performance.now();
@@ -44,13 +45,14 @@ function startEventListeners() {
 
 function startRoutines() {
   startFlaskRoutine();
+  startWordleRoutine();
   log("Started routines.");
 }
 
 startEventListeners();
-startRoutines();
 
 client.once("ready", () => {
+  startRoutines();
   log(
     `App running in ${((performance.now() - startTime) * 1e-3).toFixed(
       4

@@ -15,5 +15,8 @@
     "**/dist": true,
     "**/node_modules": true
   },
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": false
+  },
   "typescript.preferences.importModuleSpecifier": "relative"
 }
