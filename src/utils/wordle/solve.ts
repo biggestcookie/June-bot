@@ -76,7 +76,9 @@ export function solveWordle(): string {
 
     attempts++;
   }
-  const message = `Wordle ${getWordleCount()} ${guessEmojis.length}/6\n\n`;
+  const message = `Wordle ${getWordleCount()} ${
+    solved ? guessEmojis.length : "X"
+  }/6\n\n`;
   return message.concat(
     guessEmojis.join("\n"),
     `\n\n${randomElement(config.text.wordle[attempts - 1])}`
