@@ -3,16 +3,14 @@ import axios from "axios";
 import {
   APIApplicationCommandPermission,
   RESTPutAPIApplicationCommandsJSONBody,
-  RESTPutAPIApplicationCommandsResult,
-  RESTPutAPIGuildApplicationCommandsPermissionsJSONBody,
   Routes,
-} from "discord-api-types/v9";
+} from "discord-api-types/v10";
 import { performance } from "perf_hooks";
 import { commands } from "./commands";
 import { log } from "./utils/logger";
 
 const startTime = performance.now();
-const baseURL = "https://discord.com/api/v9";
+const baseURL = "https://discord.com/api/v10";
 
 const axiosInstance = axios.create({
   baseURL,
@@ -31,7 +29,6 @@ export async function deployCommands() {
       commandPerms.set(commandName, command.permissions);
       commandInfosBody.push({
         ...command.commandInfo,
-        default_permission: false,
       });
     } else if ("commandInfo" in command) {
       commandInfosBody.push(command.commandInfo);
@@ -39,37 +36,9 @@ export async function deployCommands() {
   }
 
   // Send command info to Discord
-  const commandInfoCreateResponse: RESTPutAPIApplicationCommandsResult = (
-    await axiosInstance.put(
-      Routes.applicationGuildCommands(
-        process.env.DISCORD_CLIENT!,
-        process.env.DISCORD_GUILD!
-      ),
-      commandInfosBody
-    )
-  ).data;
-
-  if (commandPerms.size < 1) {
-    return;
-  }
-
-  // Use returned command info IDs to build command permissions info
-  const commandPermsBody: RESTPutAPIGuildApplicationCommandsPermissionsJSONBody =
-    [...commandPerms].map(([commandName, commandPerm]) => ({
-      id:
-        commandInfoCreateResponse.find(
-          (command) => command.name === commandName
-        )?.id ?? "",
-      permissions: [commandPerm],
-    }));
-
-  // Send command permissions info
   await axiosInstance.put(
-    Routes.guildApplicationCommandsPermissions(
-      process.env.DISCORD_CLIENT!,
-      process.env.DISCORD_GUILD!
-    ),
-    commandPermsBody
+    Routes.applicationCommands(process.env.DISCORD_CLIENT!),
+    commandInfosBody
   );
 }
 

@@ -1,7 +1,7 @@
 import {
   APIApplicationCommandPermission,
   RESTPostAPIApplicationCommandsJSONBody,
-} from "discord-api-types/v9";
+} from "discord-api-types/v10";
 import { CommandInteraction, Message } from "discord.js";
 import { pingCommand } from "../commands/ping";
 import { chatCommand } from "./chat";
